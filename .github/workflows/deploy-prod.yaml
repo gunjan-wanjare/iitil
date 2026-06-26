@@ -18,16 +18,10 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    outputs:
-      build-version: ${{ steps.version.outputs.sha }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Set version
-        id: version
-        run: echo "sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -43,11 +37,23 @@ jobs:
         env:
           NODE_ENV: production
 
+      - name: Verify dist
+        run: |
+          echo "Current directory:"
+          pwd
+          echo ""
+          echo "Project files:"
+          ls -la
+          echo ""
+          echo "Dist folder:"
+          ls -la dist
+
       - name: Upload dist artifact
         uses: actions/upload-artifact@v4
         with:
-          name: dist-${{ steps.version.outputs.sha }}
+          name: dist
           path: dist/
+          if-no-files-found: error
           retention-days: 7
 
   deploy:
@@ -60,8 +66,13 @@ jobs:
       - name: Download dist artifact
         uses: actions/download-artifact@v4
         with:
-          name: dist-${{ needs.build.outputs.build-version }}
+          name: dist
           path: dist/
+
+      - name: Verify downloaded artifact
+        run: |
+          echo "Downloaded files:"
+          ls -R dist
 
       - name: Configure AWS credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v4
@@ -98,5 +109,5 @@ jobs:
       - name: Deployment summary
         run: |
           echo "### Deployment Successful" >> $GITHUB_STEP_SUMMARY
-          echo "- **Version:** ${{ needs.build.outputs.build-version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Bucket:** s3://${{ vars.AWS_S3_BUCKET }}" >> $GITHUB_STEP_SUMMARY
