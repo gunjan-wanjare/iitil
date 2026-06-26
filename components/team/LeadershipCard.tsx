@@ -18,6 +18,12 @@ const LeadershipCard = memo(function LeadershipCard({
   variant = "portrait",
 }: LeadershipCardProps) {
   const isLandscape = variant === "landscape";
+  
+  // Logic: Only the first member (e.g., CEO) gets the taller aspect ratio (4/5), 
+  // everyone else gets a perfect square (1/1). 
+  // You can change 'index === 0' to a condition like 'member.role === "CEO"'
+  const isSpecialVariant = index === 0;
+  const portraitAspectRatio = isSpecialVariant ? "aspect-[4/5]" : "aspect-square";
 
   return (
     <motion.article
@@ -41,8 +47,8 @@ const LeadershipCard = memo(function LeadershipCard({
       <div
         className={`relative overflow-hidden flex-shrink-0
           ${isLandscape
-            ? "w-full md:w-[38%] aspect-[4/5] md:aspect-auto md:min-h-[400px]" // Increased height here
-            : "aspect-[4/5]" // Changed from 3/2 to 4/5 for more vertical height
+            ? "w-full md:w-[38%] aspect-[16/9] md:aspect-auto md:min-h-[320px]"
+            : portraitAspectRatio // Applies aspect-square to everyone except index 0
           }
         `}
       >
@@ -50,13 +56,12 @@ const LeadershipCard = memo(function LeadershipCard({
           className="absolute inset-0 group-hover:[transform:scale(1.06)] transition-transform duration-500 will-change-transform"
           style={{ transitionTimingFunction: "cubic-bezier(0.25,0.46,0.45,0.94)" }}
         >
-          {/* Note: Ensure TeamMemberImage applies 'object-cover' internally */}
           <TeamMemberImage
             src={member.image}
             alt={`Portrait of ${member.name}`}
             name={member.name}
             priority={index < 2}
-            className="w-full h-full object-cover object-top" 
+            className="w-full h-full object-cover object-top"
             sizes={
               isLandscape
                 ? "(max-width: 768px) 100vw, 40vw"
