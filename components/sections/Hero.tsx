@@ -164,7 +164,7 @@ export default function Hero() {
       </div>
 
       {/* The Problem */}
-      <div id="problem" className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pb-20">
+      {/* <div id="problem" className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pb-20">
         <div className="flex flex-col items-center text-center mb-14">
           <div className="mb-5">
             <PillLabel>The Problem</PillLabel>
@@ -214,7 +214,7 @@ export default function Hero() {
             Sounds like us. Now what?
           </AnimatedButton>
         </motion.div>
-      </div>
+      </div> */}
 
       {/* Marquee */}
       <div className="relative z-10 w-full pb-20 max-w-6xl mx-auto overflow-hidden">

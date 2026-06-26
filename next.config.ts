@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
-
+ 
 const nextConfig: NextConfig = {
+  output: "export",
+ 
   async redirects() {
     return [
       {
@@ -21,5 +23,5 @@ const nextConfig: NextConfig = {
     ];
   },
 };
-
+ 
 export default nextConfig;
