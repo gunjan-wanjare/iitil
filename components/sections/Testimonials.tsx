@@ -118,9 +118,9 @@ const TESTIMONIALS = [
 
 function StarRating() {
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-0.5 sm:gap-1">
       {[...Array(5)].map((_, i) => (
-        <Star key={i} size={14} className="fill-[#2563eb] text-[#2563eb]" />
+        <Star key={i} size={12} className="fill-[#2563eb] text-[#2563eb] sm:w-[14px] sm:h-[14px]" />
       ))}
     </div>
   );
@@ -129,7 +129,7 @@ function StarRating() {
 function TestimonialCard({ t }: { t: (typeof TESTIMONIALS)[0] }) {
   return (
     <div
-      className="flex-shrink-0 w-[360px] rounded-2xl p-6 mx-3"
+      className="flex-shrink-0 w-[290px] sm:w-[340px] md:w-[360px] rounded-2xl p-5 sm:p-6 mx-2 sm:mx-3"
       style={{
         background:
           "linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 40%, transparent 60%, rgba(37,99,235,0.04) 100%)",
@@ -140,21 +140,21 @@ function TestimonialCard({ t }: { t: (typeof TESTIMONIALS)[0] }) {
           "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(37,99,235,0.1)",
       }}
     >
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex items-center gap-3 mb-3 sm:mb-4">
         <div
-          className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold text-white flex-shrink-0"
+          className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold text-white flex-shrink-0"
           style={{ background: t.color }}
         >
           {t.initials}
         </div>
-        <div>
-          <p className="text-sm font-semibold text-white">{t.name}</p>
-          <p className="text-xs text-white/40">{t.role}</p>
-          <p className="text-[10px] text-white/25 mt-0.5">{t.region}</p>
+        <div className="min-w-0">
+          <p className="text-xs sm:text-sm font-semibold text-white truncate">{t.name}</p>
+          <p className="text-[10px] sm:text-xs text-white/40 truncate">{t.role}</p>
+          {t.region && <p className="text-[9px] sm:text-[10px] text-white/25 mt-0.5">{t.region}</p>}
         </div>
       </div>
       <StarRating />
-      <p className="mt-4 text-base text-white/70 leading-relaxed">
+      <p className="mt-3 sm:mt-4 text-sm sm:text-base text-white/70 leading-relaxed">
         &ldquo;{t.quote}&rdquo;
       </p>
     </div>
@@ -216,15 +216,17 @@ function MarqueeTrack({
 
   return (
     <div
-      className="overflow-hidden"
+      className="overflow-hidden py-1"
       style={{
         maskImage:
-          "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+          "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
         WebkitMaskImage:
-          "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+          "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
       }}
       onMouseEnter={() => { pausedRef.current = true; }}
       onMouseLeave={() => { pausedRef.current = false; }}
+      onTouchStart={() => { pausedRef.current = true; }}
+      onTouchEnd={() => { pausedRef.current = false; }}
     >
       <motion.div ref={trackRef} className="flex will-change-transform" style={{ x }}>
         {doubled.map((t, i) => (
@@ -240,12 +242,8 @@ export default function Testimonials() {
   const row2 = TESTIMONIALS.slice(5);
 
   return (
-    <section className="relative py-32 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-20">
-  
-
-      </div>
-      <div className="mb-4">
+    <section className="relative py-16 sm:py-24 md:py-32 overflow-hidden">
+      <div className="mb-4 sm:mb-6">
         <MarqueeTrack testimonials={row1} direction="left" />
       </div>
       <MarqueeTrack testimonials={row2} direction="right" />

@@ -52,15 +52,20 @@ function HeroSection() {
       id="reach-us-hero"
       className="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden"
     >
-      <div className="absolute top-24 right-6 md:top-24 md:right-12 z-20 ">
-        <Image 
-          src="/yaka_brand_logo.png"
-          alt="Yaka Brand Logo" 
-          width={80} 
-          height={40}
-          priority
-        />
+      {/* Brand Logo - Completely hidden on mobile layouts */}
+      <div className="hidden md:block md:absolute md:top-28 md:right-12 z-30 pointer-events-none">
+        <div className="pointer-events-auto">
+          <Image 
+            src="/yaka_brand_logo.png"
+            alt="Yaka Brand Logo" 
+            width={80} 
+            height={40}
+            priority
+            className="w-20 h-auto"
+          />
+        </div>
       </div>
+
       <motion.div
         style={{ y: bgY }}
         className="absolute inset-0 pointer-events-none will-change-transform"
@@ -101,6 +106,7 @@ function HeroSection() {
         }}
       />
 
+      {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 pt-32 pb-12 max-w-5xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

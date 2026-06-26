@@ -34,6 +34,7 @@ function HeroSection() {
     target: ref,
     offset: ["start start", "end start"],
   });
+  
   // Subtle parallax: background moves up at half speed
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
 
@@ -42,16 +43,20 @@ function HeroSection() {
       ref={ref}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
     >
-
-      <div className="absolute top-24 right-6 md:top-24 md:right-12 z-20 ">
-        <Image 
-          src="/yaka_brand_logo.png"
-          alt="Yaka Brand Logo" 
-          width={80} 
-          height={40}
-          priority
-        />
+      {/* Brand Logo - Completely hidden on mobile layouts */}
+      <div className="hidden md:block md:absolute md:top-28 md:right-12 z-30 pointer-events-none">
+        <div className="pointer-events-auto">
+          <Image 
+            src="/yaka_brand_logo.png"
+            alt="Yaka Brand Logo" 
+            width={80} 
+            height={40}
+            priority
+            className="w-20 h-auto"
+          />
+        </div>
       </div>
+
       {/* ── Parallax background layer ── */}
       <motion.div
         style={{ y: bgY }}
@@ -117,7 +122,7 @@ function HeroSection() {
       />
 
       {/* ── Content ── */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6 pt-32 pb-20 max-w-5xl mx-auto w-full">
+      <div className="relative z-10 flex flex-col items-center text-center px-6 pt-32 pb-6 max-w-5xl mx-auto w-full">
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -139,26 +144,26 @@ function HeroSection() {
       </div>
 
       <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className=" text-lg text-white/50 text-center max-w-4xl leading-relaxed flex flex-col gap-4"
-        >
-          <p>
-            We bridge the gaps across your legacy infrastructure, turning isolated data into real-time analytical power. Fragmented metrics become a single line of clear engineering truth.          </p>
-        </motion.div>
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.9, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+        className="text-lg text-white/50 text-center max-w-4xl px-6 leading-relaxed flex flex-col gap-4 z-10"
+      >
+        <p>
+          We bridge the gaps across your legacy infrastructure, turning isolated data into real-time analytical power. Fragmented metrics become a single line of clear engineering truth.
+        </p>
+      </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.1, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mt-10 flex flex-col sm:flex-row gap-4 items-center justify-center"
-        >
-          <AnimatedButton variant="primary" href="/reach-us">
-            Say less. Let&apos;s build.
-          </AnimatedButton>
-          
-        </motion.div>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1.1, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+        className="mt-10 mb-16 flex flex-col sm:flex-row gap-4 items-center justify-center z-10"
+      >
+        <AnimatedButton variant="primary" href="/reach-us">
+          Say less. Let&apos;s build.
+        </AnimatedButton>
+      </motion.div>
 
       {/* Bottom fade */}
       <div

@@ -13,7 +13,7 @@ export default function SolutionsHero() {
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
-  });
+  }); 
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
 
   return (
@@ -21,16 +21,20 @@ export default function SolutionsHero() {
       ref={ref}
       className="relative min-h-[92vh] flex flex-col items-center justify-center overflow-hidden"
     >
-
-      <div className="absolute top-24 right-6 md:top-24 md:right-12 z-20 ">
-        <Image 
-          src="/yaka_brand_logo.png"
-          alt="Yaka Brand Logo" 
-          width={80} 
-          height={40}
-          priority
-        />
+      {/* Brand Logo - Completely hidden on mobile layouts */}
+      <div className="hidden md:block md:absolute md:top-28 md:right-12 z-30 pointer-events-none">
+        <div className="pointer-events-auto">
+          <Image 
+            src="/yaka_brand_logo.png"
+            alt="Yaka Brand Logo" 
+            width={80} 
+            height={40}
+            priority
+            className="w-20 h-auto"
+          />
+        </div>
       </div>
+
       <motion.div style={{ y: bgY }} className="absolute inset-0 pointer-events-none">
         <div
           className="absolute inset-0"
@@ -88,8 +92,6 @@ export default function SolutionsHero() {
           means no handoff gaps, no four-vendor finger-pointing, and no &ldquo;that&apos;s out of
           scope&rdquo; when the pieces need to fit.
         </motion.p>
-
-       
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}

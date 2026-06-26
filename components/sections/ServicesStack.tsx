@@ -7,16 +7,20 @@ import BlurText from "@/components/ui/BlurText";
 import PillLabel from "@/components/ui/PillLabel";
 import AnimatedButton from "@/components/ui/AnimatedButton";
 import ScrollStack from "@/components/scroll-stack/ScrollStack";
+import Image from "next/image";
 
 // Shared image configuration to ensure exact scaling and layout containment
 function MockupImage({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="w-full h-full relative flex items-center justify-center">
-      <img 
+    <div className="w-full h-full relative min-h-[260px] sm:min-h-[320px] md:min-h-full">
+      <Image 
         src={src} 
         alt={alt} 
-        className="absolute inset-0 w-full h-full object-cover object-center select-none z-10"
+        fill
+        sizes="(max-w-768px) 100vw, 50vw"
+        className="object-cover object-center select-none rounded-xl md:rounded-2xl"
         draggable={false}
+        priority
       />
     </div>
   );
@@ -92,7 +96,7 @@ const CARDS = [
 export function ServiceCard({ card }: { card: (typeof CARDS)[0] }) {
   return (
     <div
-      className="relative w-full rounded-3xl overflow-hidden flex flex-col md:flex-row h-auto md:h-[500px]"
+      className="relative w-full rounded-3xl overflow-hidden flex flex-col md:flex-row h-auto md:min-h-[520px] lg:h-[520px] mb-6 md:mb-0"
       style={{
         background: "linear-gradient(135deg, rgba(20,28,45,0.95) 0%, rgba(13,21,38,0.98) 35%, rgba(9,15,28,1) 65%, rgba(37,99,235,0.08) 100%)",
         border: "1px solid rgba(255,255,255,0.08)",
@@ -109,9 +113,10 @@ export function ServiceCard({ card }: { card: (typeof CARDS)[0] }) {
         style={{ background: "radial-gradient(ellipse at bottom right, rgba(37,99,235,0.06) 0%, transparent 65%)" }}
       />
 
-      <div className="relative z-10 flex-1 p-8 md:p-12 flex flex-col justify-center gap-0">
+      {/* Content Container */}
+      <div className="relative z-10 flex-1 p-6 sm:p-8 md:p-10 lg:p-12 flex flex-col justify-center order-2 md:order-1">
         <span
-          className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium tracking-widest uppercase mb-6 w-fit font-mono"
+          className="inline-flex items-center px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium tracking-widest uppercase mb-4 sm:mb-6 w-fit font-mono"
           style={{
             background: "rgba(37,99,235,0.12)",
             border: "1px solid rgba(37,99,235,0.25)",
@@ -120,22 +125,26 @@ export function ServiceCard({ card }: { card: (typeof CARDS)[0] }) {
         >
           {card.tag}
         </span>
-        <h3 className="text-2xl md:text-4xl font-medium text-white tracking-tight leading-[1.2] mb-3">
+        
+        <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium text-white tracking-tight leading-[1.2] mb-3">
           {card.title}
         </h3>
-        {"headline" in card && card.headline && (
-          <p className="text-base md:text-lg font-medium text-white/75 mb-4 leading-snug">
+        
+        {card.headline && (
+          <p className="text-sm sm:text-base lg:text-lg font-medium text-white/75 mb-3 sm:mb-4 leading-snug">
             {card.headline}
           </p>
         )}
-        <p className="text-sm md:text-lg text-white/45 font-light leading-relaxed mb-6">
+        
+        <p className="text-xs sm:text-sm lg:text-base text-white/45 font-light leading-relaxed mb-4 sm:mb-6">
           {card.description}
         </p>
-        <div className="flex flex-col gap-3.5 mb-8">
+        
+        <div className="flex flex-col gap-2.5 sm:gap-3.5 mb-6 sm:mb-8">
           {card.bullets.map((b, i) => (
-            <span key={i} className="flex items-center gap-3 text-sm font-medium text-white/75">
+            <div key={i} className="flex items-start gap-3 text-xs sm:text-sm font-medium text-white/75">
               <span
-                className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center"
+                className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
                 style={{
                   background: "rgba(37,99,235,0.15)",
                   border: "1px solid rgba(37,99,235,0.3)",
@@ -143,24 +152,26 @@ export function ServiceCard({ card }: { card: (typeof CARDS)[0] }) {
               >
                 <CheckCircle2 className="w-3 h-3 text-[#60a5fa]" />
               </span>
-              {b}
-            </span>
+              <span className="flex-1 leading-tight">{b}</span>
+            </div>
           ))}
         </div>
-        {"ctaLabel" in card && card.ctaLabel && (
+        
+        {card.ctaLabel && (
           <AnimatedButton
             variant="ghost"
-            href={"ctaHref" in card ? card.ctaHref : "/reach-us"}
-            className="text-sm px-6 py-3 w-fit"
+            href={card.ctaHref || "/reach-us"}
+            className="text-xs sm:text-sm px-5 py-2.5 sm:px-6 sm:py-3 w-fit"
           >
             {card.ctaLabel}
           </AnimatedButton>
         )}
       </div>
 
-      <div className="relative z-10 w-full md:w-[46%] flex-shrink-0 p-5 md:p-6 flex items-stretch">
+      {/* Mockup Container */}
+      <div className="relative z-10 w-full md:w-[44%] lg:w-[46%] flex-shrink-0 p-4 sm:p-6 flex items-stretch order-1 md:order-2">
         <div
-          className="w-full rounded-2xl overflow-hidden min-h-[340px] md:min-h-[380px] h-full relative"
+          className="w-full rounded-2xl overflow-hidden h-full relative"
           style={{
             background: "rgba(4,8,20,0.45)",
             border: "1px solid rgba(255,255,255,0.06)",
@@ -177,10 +188,10 @@ export function ServiceCard({ card }: { card: (typeof CARDS)[0] }) {
 
 export default function ServicesStack() {
   return (
-    <section id="services" className="relative">
-      {/* What We Actually Do */}
-      <div className="flex flex-col items-center text-center pb-8 max-w-7xl mx-auto px-6 md:px-12">
-        <div className="mb-6">
+    <section id="services" className="relative py-12 sm:py-16 md:py-20">
+      {/* Header Container */}
+      <div className="flex flex-col items-center text-center pb-12 sm:pb-16 max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+        <div className="mb-4 sm:mb-6">
           <PillLabel>What We Actually Do</PillLabel>
         </div>
         <BlurText
@@ -189,25 +200,28 @@ export default function ServicesStack() {
           direction="bottom"
           delay={100}
           stepDuration={0.45}
-          className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-white text-center justify-center"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-white text-center justify-center"
         />
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ delay: 0.3, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mt-6 text-base md:text-lg text-white/45 max-w-2xl leading-relaxed"
+          className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg text-white/45 max-w-2xl leading-relaxed"
         >
           End-to-end data intelligence and technology services for enterprises ready to modernise
           how they built to deliver, not to drag on.
         </motion.p>
       </div>
 
-      <ScrollStack labels={["Data", "AI", "Cloud", "Build"]}>
-        {CARDS.map((card, i) => (
-          <ServiceCard key={i} card={card} />
-        ))}
-      </ScrollStack>
+      {/* Cards stack presentation */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+        <ScrollStack labels={["Data", "AI", "Cloud", "Build"]}>
+          {CARDS.map((card, i) => (
+            <ServiceCard key={i} card={card} />
+          ))}
+        </ScrollStack>
+      </div>
     </section>
   );
 }

@@ -63,15 +63,18 @@ export default function Hero() {
           "radial-gradient(ellipse 80% 50% at 50% 40%, rgba(37,99,235,0.12) 0%, transparent 70%)",
       }}
     >
-      {/* Brand Logo in Top Right Corner */}
-      <div className="absolute top-24 right-6 md:top-24 md:right-12 z-20 ">
-        <Image 
-          src="/yaka_brand_logo.png"
-          alt="Yaka Brand Logo" 
-          width={80} 
-          height={40}
-          priority
-        />
+      {/* Brand Logo - Completely hidden on mobile viewports */}
+      <div className="hidden md:flex md:absolute md:top-28 md:right-12 z-30 pointer-events-none">
+        <div className="pointer-events-auto">
+          <Image 
+            src="/yaka_brand_logo.png"
+            alt="Yaka Brand Logo" 
+            width={80} 
+            height={40}
+            priority
+            className="w-20 h-auto"
+          />
+        </div>
       </div>
 
       <div
@@ -83,8 +86,8 @@ export default function Hero() {
         }}
       />
 
-      {/* Hero */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6 pt-32 pb-16 max-w-6xl mx-auto w-full min-h-screen justify-center">
+      {/* Hero Content Wrapper */}
+      <div className="relative z-10 flex flex-col items-center text-center px-6 pt-24 md:pt-32 pb-16 max-w-6xl mx-auto w-full min-h-[calc(100vh-80px)] md:min-h-screen justify-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -142,11 +145,7 @@ export default function Hero() {
           className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-4xl"
         >
           {HERO_METRICS.map((metric, i) => (
-            <div
-              key={metric.label}
-              className=""
-              
-            >
+            <div key={metric.label} className="">
               <p className="text-3xl md:text-4xl font-semibold text-white tabular-nums">
                 {metric.value}
               </p>
@@ -157,59 +156,6 @@ export default function Hero() {
           ))}
         </motion.div>
       </div>
-
-      {/* The Problem */}
-      {/* <div id="problem" className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pb-20">
-        <div className="flex flex-col items-center text-center mb-14">
-          <div className="mb-5">
-            <PillLabel>The Problem</PillLabel>
-          </div>
-          <BlurText
-            text="Too many dashboards never added up to better decisions."
-            animateBy="words"
-            direction="bottom"
-            delay={80}
-            stepDuration={0.4}
-            className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-white text-center justify-center max-w-4xl"
-          />
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ delay: 0.3, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="mt-6 text-lg text-white/45 max-w-3xl leading-relaxed"
-          >
-            The truth is, most enterprises aren&apos;t short on data, they&apos;re short on
-            agreement. Three things usually stand in the way:
-          </motion.p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
-          {PROBLEMS.map((problem, i) => (
-            <GlowCard key={problem.title} delay={i * 0.08}>
-              <h3 className="text-xl font-semibold text-white mb-3 tracking-tight">
-                {problem.title}
-              </h3>
-              <p className="text-base text-white/50 leading-relaxed">{problem.description}</p>
-            </GlowCard>
-          ))}
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="flex flex-col items-center text-center gap-6"
-        >
-          <p className="text-lg text-white/55 max-w-2xl leading-relaxed">
-            Not a tooling failure. A connection failure. And it&apos;s fixable!
-          </p>
-          <AnimatedButton variant="ghost" href="/solutions">
-            Sounds like us. Now what?
-          </AnimatedButton>
-        </motion.div>
-      </div> */}
 
       {/* Marquee */}
       <div className="relative z-10 w-full pb-20 max-w-6xl mx-auto overflow-hidden">

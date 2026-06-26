@@ -251,16 +251,20 @@ function HeroSection() {
       id="portfolio-hero"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
     >
-
-      <div className="absolute top-24 right-6 md:top-24 md:right-12 z-20 ">
-        <Image 
-          src="/yaka_brand_logo.png"
-          alt="Yaka Brand Logo" 
-          width={80} 
-          height={40}
-          priority
-        />
+      {/* Brand Logo - Hidden on mobile viewports, positioned safely below navbar on desktop */}
+      <div className="hidden md:block md:absolute md:top-28 md:right-12 z-30 pointer-events-none">
+        <div className="pointer-events-auto">
+          <Image 
+            src="/yaka_brand_logo.png"
+            alt="Yaka Brand Logo" 
+            width={80} 
+            height={40}
+            priority
+            className="w-20 h-auto"
+          />
+        </div>
       </div>
+
       {/* Parallax background */}
       <motion.div
         style={{ y: bgY }}
@@ -308,6 +312,7 @@ function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 pt-32 pb-12 max-w-5xl mx-auto w-full">
+        {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -334,13 +339,10 @@ function HeroSection() {
         >
           ITIL is a full-stack technology services brand delivering scalable cloud infrastructure, enterprise applications, automation, and data intelligence solutions globally.
         </motion.p>
-
-       
       </div>
     </section>
   );
 }
-
 /* ────────────────────────────────────────────────────────────────
    Section 3 — Organization Structure
 ──────────────────────────────────────────────────────────────── */
