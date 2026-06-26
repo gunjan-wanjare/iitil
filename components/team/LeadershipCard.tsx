@@ -16,14 +16,15 @@ interface LeadershipCardProps {
 const LeadershipCard = memo(function LeadershipCard({ member, index }: LeadershipCardProps) {
   return (
     <motion.article
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      // Entry animation variants
+      initial="hidden"
+      whileInView="visible"
       viewport={{ once: true, margin: "-60px" }}
       transition={{ delay: index * 0.1, duration: 0.7, ease: EASE }}
-      // Define the state triggers
-      initial="rest"
-      whileHover="hover"
-      animate="rest"
+      variants={{
+        hidden: { opacity: 0, y: 40 },
+        visible: { opacity: 1, y: 0 },
+      }}
       className="group relative rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02]"
     >
       {/* Container Motion Div - Handles the "Opening/Expanding" Effect */}
@@ -38,6 +39,9 @@ const LeadershipCard = memo(function LeadershipCard({ member, index }: Leadershi
             boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), 0 0 0 1px rgba(37,99,235,0.28), 0 20px 40px rgba(0,0,0,0.4)" 
           }
         }}
+        initial="rest"
+        whileHover="hover"
+        animate="rest"
         transition={{ duration: 0.4, ease: EASE }}
         className="h-full flex flex-col"
       >
