@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { ReactNode } from "react";
 
@@ -12,6 +13,10 @@ interface AnimatedButtonProps {
   className?: string;
   as?: "button" | "a";
   showArrow?: boolean;
+}
+
+function isInternalHref(href: string): boolean {
+  return href.startsWith("/") && !href.startsWith("//");
 }
 
 export default function AnimatedButton({
@@ -35,18 +40,8 @@ export default function AnimatedButton({
       ? { boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -1px 0 rgba(0,0,0,0.2)" }
       : { boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)" };
 
-  const MotionTag = href ? motion.a : motion.button;
-
-  return (
-    <MotionTag
-      whileHover="hover"
-      initial="rest"
-      animate="rest"
-      className={`${baseStyles} ${variantStyles} ${className}`}
-      style={insetShadow}
-      onClick={onClick}
-      {...(href ? { href } : { type: "button" as const })}
-    >
+  const content = (
+    <>
       {/* Sliding text layers */}
       <span className="relative overflow-hidden inline-flex flex-col h-[1.2em]">
         <motion.span
@@ -96,6 +91,42 @@ export default function AnimatedButton({
           </motion.span>
         </span>
       )}
+    </>
+  );
+
+  if (href && isInternalHref(href)) {
+    return (
+      <motion.span
+        whileHover="hover"
+        initial="rest"
+        animate="rest"
+        className="inline-flex"
+      >
+        <Link
+          href={href}
+          onClick={onClick}
+          className={`${baseStyles} ${variantStyles} ${className}`}
+          style={insetShadow}
+        >
+          {content}
+        </Link>
+      </motion.span>
+    );
+  }
+
+  const MotionTag = href ? motion.a : motion.button;
+
+  return (
+    <MotionTag
+      whileHover="hover"
+      initial="rest"
+      animate="rest"
+      className={`${baseStyles} ${variantStyles} ${className}`}
+      style={insetShadow}
+      onClick={onClick}
+      {...(href ? { href } : { type: "button" as const })}
+    >
+      {content}
     </MotionTag>
   );
 }
@@ -112,36 +143,42 @@ export function NavLink({
   className?: string;
   active?: boolean;
 }) {
+  if (!href) return null;
+
   return (
-    <motion.a
+    <Link
       href={href}
-      whileHover="hover"
-      initial="rest"
-      animate="rest"
       className={`relative overflow-hidden inline-flex flex-col h-[1.35em] transition-colors font-medium cursor-pointer ${
         active ? "text-white" : "text-white/70 hover:text-white"
       } ${className}`}
     >
       <motion.span
-        variants={{
-          rest: { y: "0%", opacity: 1 },
-          hover: { y: "-100%", opacity: 0 },
-        }}
-        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-        className="inline-block"
+        whileHover="hover"
+        initial="rest"
+        animate="rest"
+        className="relative overflow-hidden inline-flex flex-col h-[1.35em]"
       >
-        {children}
+        <motion.span
+          variants={{
+            rest: { y: "0%", opacity: 1 },
+            hover: { y: "-100%", opacity: 0 },
+          }}
+          transition={{ type: "spring", stiffness: 400, damping: 30 }}
+          className="inline-block"
+        >
+          {children}
+        </motion.span>
+        <motion.span
+          variants={{
+            rest: { y: "100%", opacity: 0 },
+            hover: { y: "0%", opacity: 1 },
+          }}
+          transition={{ type: "spring", stiffness: 400, damping: 30 }}
+          className="inline-block absolute top-0 left-0 whitespace-nowrap text-white"
+        >
+          {children}
+        </motion.span>
       </motion.span>
-      <motion.span
-        variants={{
-          rest: { y: "100%", opacity: 0 },
-          hover: { y: "0%", opacity: 1 },
-        }}
-        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-        className="inline-block absolute top-0 left-0 whitespace-nowrap text-white"
-      >
-        {children}
-      </motion.span>
-    </motion.a>
+    </Link>
   );
 }

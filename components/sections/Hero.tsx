@@ -16,13 +16,13 @@ const MARQUEE_LOGOS = [
   "Analytics",
   "Enterprise Engineering",
 ];
-
 const HERO_METRICS = [
   { value: "150+", label: "Programs Delivered" },
   { value: "12+", label: "Industries Served" },
-  { value: "4", label: "Continents Covered" },
+  { value: "₹1Cr+", label: "Revenue Generated" },
   { value: "6 weeks", label: "Time-to-Value" },
 ] as const;
+
 
 const PROBLEMS = [
   {
