@@ -6,6 +6,7 @@ import BlurText from "@/components/ui/BlurText";
 import PillLabel from "@/components/ui/PillLabel";
 import AnimatedButton from "@/components/ui/AnimatedButton";
 import { EASE } from "@/lib/animations";
+import Image from "next/image";
 
 export default function SolutionsHero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -20,6 +21,16 @@ export default function SolutionsHero() {
       ref={ref}
       className="relative min-h-[92vh] flex flex-col items-center justify-center overflow-hidden"
     >
+
+      <div className="absolute top-24 right-6 md:top-24 md:right-12 z-20 ">
+        <Image 
+          src="/yaka_brand_logo.png"
+          alt="Yaka Brand Logo" 
+          width={80} 
+          height={40}
+          priority
+        />
+      </div>
       <motion.div style={{ y: bgY }} className="absolute inset-0 pointer-events-none">
         <div
           className="absolute inset-0"
@@ -71,22 +82,14 @@ export default function SolutionsHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.85, duration: 0.7, ease: EASE }}
-          className="mt-8 text-lg md:text-xl text-white/50 text-center max-w-3xl leading-relaxed"
+          className="mt-8 text-md md:text-lg text-white/50 text-center max-w-3xl leading-relaxed"
         >
           We bring data, AI, cloud and engineering under one roof, and one architecture. That
           means no handoff gaps, no four-vendor finger-pointing, and no &ldquo;that&apos;s out of
           scope&rdquo; when the pieces need to fit.
         </motion.p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.05, duration: 0.7, ease: EASE }}
-          className="mt-4 text-base md:text-lg text-white/40 text-center max-w-3xl leading-relaxed"
-        >
-          Senior teams, deeply specialised in each layer, building toward a single outcome you can
-          measure.
-        </motion.p>
+       
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -95,10 +98,10 @@ export default function SolutionsHero() {
           className="mt-10 flex flex-col sm:flex-row gap-4 items-center"
         >
           <AnimatedButton variant="primary" href="/reach-us">
-            Talk to a specialist →
+            Talk to a specialist
           </AnimatedButton>
           <AnimatedButton variant="ghost" href="/reach-us">
-            Not sure where to start?
+            Not sure where to start
           </AnimatedButton>
         </motion.div>
       </div>

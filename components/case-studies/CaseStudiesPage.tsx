@@ -10,11 +10,7 @@ import GlowCard from "@/components/ui/GlowCard";
 import AnimatedButton from "@/components/ui/AnimatedButton";
 import CaseStudySection from "@/components/case-studies/CaseStudySection";
 import AnimatedMetric from "@/components/case-studies/AnimatedMetric";
-import {
-  HealthcareVisual,
-  FinanceVisual,
-  RetailVisual,
-} from "@/components/case-studies/CaseStudyVisuals";
+import Image from "next/image";
 
 import { EASE, fadeUp, staggerContainer, staggerItem } from "@/lib/animations";
 
@@ -45,6 +41,17 @@ function HeroSection() {
       id="case-studies-hero"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
     >
+
+      <div className="absolute top-24 right-6 md:top-24 md:right-12 z-20 ">
+        <Image 
+          src="/yaka_brand_logo.png"
+          alt="Yaka Brand Logo" 
+          width={80} 
+          height={40}
+          priority
+        />
+      </div>
+      
       <motion.div
         style={{ y: bgY }}
         className="absolute inset-0 pointer-events-none will-change-transform"
@@ -254,9 +261,6 @@ const CTASection = memo(function CTASection() {
   );
 });
 
-/* ────────────────────────────────────────────────────────────────
-   Root page
-──────────────────────────────────────────────────────────────── */
 export default function CaseStudiesPage() {
   return (
     <main
@@ -265,7 +269,6 @@ export default function CaseStudiesPage() {
     >
       <Navbar />
       <HeroSection />
-
 
       <div className="lg:pl-8">
         <div className="max-w-7xl mx-auto px-6">
@@ -278,6 +281,7 @@ export default function CaseStudiesPage() {
           />
         </div>
 
+        {/* HEALTHCARE SECTION */}
         <CaseStudySection
           id="case-healthcare"
           industry="Healthcare"
@@ -292,7 +296,18 @@ export default function CaseStudiesPage() {
             { value: 50, label: "Faster access to patient records" },
             { value: 28, label: "Improvement in operational efficiency" },
           ]}
-          visual={<HealthcareVisual accent="#60a5fa" />}
+          visual={
+            <div className="relative w-full aspect-[5/9] rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+              <Image
+                src="/healthcare.png"
+                alt="Healthcare case study visualization"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+                className="object-cover"
+              />
+            </div>
+          }
         />
 
         <div className="max-w-7xl mx-auto px-6">
@@ -305,6 +320,7 @@ export default function CaseStudiesPage() {
           />
         </div>
 
+        {/* FINANCE SECTION */}
         <CaseStudySection
           id="case-finance"
           industry="Finance"
@@ -319,7 +335,17 @@ export default function CaseStudiesPage() {
             { value: 40, label: "Faster fraud detection time" },
             { value: 100, label: "Regulatory compliance achievement" },
           ]}
-          visual={<FinanceVisual accent="#2563eb" />}
+          visual={
+            <div className="relative w-full aspect-[5/9] rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+              <Image
+                src="/financial.png"
+                alt="Financial case study visualization"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </div>
+          }
           reverse
         />
 
@@ -333,6 +359,7 @@ export default function CaseStudiesPage() {
           />
         </div>
 
+        {/* RETAIL SECTION */}
         <CaseStudySection
           id="case-retail"
           industry="Retail"
@@ -347,7 +374,17 @@ export default function CaseStudiesPage() {
             { value: 55, label: "Increase in customer retention" },
             { value: 38, label: "Growth in average order value" },
           ]}
-          visual={<RetailVisual accent="#1d4ed8" />}
+          visual={
+            <div className="relative w-full aspect-[5/9] rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+              <Image
+                src="/retail.png"
+                alt="Retail case study visualization"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </div>
+          }
         />
       </div>
 

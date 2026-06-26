@@ -50,12 +50,12 @@ export default function Home() {
       <Navbar />
       <Hero />
       <ServicesStack />
-      <WorkProcess />
+      <WorkProcess /> 
       <IITILComparison />
-      <FAQ />
       <CaseStudies />
       <Benefits />
       <Testimonials />
+      {/* <FAQ /> */}
       <CTABanner />
       <Footer />
     </main>

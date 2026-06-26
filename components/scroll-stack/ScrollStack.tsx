@@ -81,7 +81,7 @@ const StackCard = React.memo(function StackCard({
       }}
     >
       <motion.div
-        className="pointer-events-auto w-full max-w-5xl mx-auto px-6 md:px-12"
+        className="pointer-events-auto w-full max-w-6xl mx-auto px-6 md:px-12"
         style={{ boxShadow }}
       >
         {children}

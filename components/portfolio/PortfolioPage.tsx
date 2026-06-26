@@ -29,6 +29,7 @@ import {
   Boxes,
 } from "lucide-react";
 import { EASE, fadeUp } from "@/lib/animations";
+import Image from "next/image";
 
 const ICON_SIZE = 20;
 const ICON_PROPS = { size: ICON_SIZE, strokeWidth: 1.8 } as const;
@@ -50,9 +51,6 @@ const Icon = {
   CRM: <Boxes {...ICON_PROPS} />,
 };
 
-/* ────────────────────────────────────────────────────────────────
-   Card datasets
-──────────────────────────────────────────────────────────────── */
 const PROJECT_CARDS: ServiceShowcaseCard[] = [
   {
     id: "mdc",
@@ -60,7 +58,7 @@ const PROJECT_CARDS: ServiceShowcaseCard[] = [
     title: "My Doctor Capsule",
     description:
       "A digital healthcare platform that simplifies access to consultations, health records, and patient care services.",
-    icon: Icon.Heart,
+    img: "/doctor_capsule.png",
     accent: "#60a5fa",
     features: [
       "Healthcare provider connections",
@@ -75,7 +73,7 @@ const PROJECT_CARDS: ServiceShowcaseCard[] = [
     title: "Loan Konnekt",
     description:
       "A smart credit and lending facilitation platform connecting customers with the right lenders based on their financial profile.",
-    icon: Icon.CreditCard,
+    img: "/loan_konnekt.png",
     accent: "#2563eb",
     features: [
       "Streamlined loan discovery",
@@ -90,7 +88,7 @@ const PROJECT_CARDS: ServiceShowcaseCard[] = [
     title: "Lawvix",
     description:
       "A technology-enabled legal services platform offering accessible, reliable, and structured legal solutions.",
-    icon: Icon.Shield,
+    img: "/lawvix.png",
     accent: "#3b82f6",
     features: [
       "Verified legal professionals",
@@ -105,7 +103,7 @@ const PROJECT_CARDS: ServiceShowcaseCard[] = [
     title: "Property Care X",
     description:
       "An integrated property management and support platform designed to handle end-to-end property needs.",
-    icon: Icon.Building,
+    img: "/property_care.png",
     accent: "#1d4ed8",
     features: [
       "Maintenance & tenant mgmt",
@@ -123,7 +121,7 @@ const ECOSYSTEM_CARDS: ServiceShowcaseCard[] = [
     title: "Data Services",
     description:
       "End-to-end data lifecycle management — from ingestion and cleansing to enriched reporting and strategic dashboards.",
-    icon: Icon.Database,
+    img: "/data_service.png",
     accent: "#2563eb",
     chips: [
       "Data Entry & Processing",
@@ -140,7 +138,7 @@ const ECOSYSTEM_CARDS: ServiceShowcaseCard[] = [
     title: "Cloud & Infrastructure",
     description:
       "Resilient cloud and infrastructure solutions that keep your operations scalable, secure, and cost-efficient.",
-    icon: Icon.Cloud,
+    img: "/cloud_infrastructure.png",
     accent: "#2563eb",
     chips: [
       "Cloud Deployment",
@@ -157,7 +155,7 @@ const ECOSYSTEM_CARDS: ServiceShowcaseCard[] = [
     title: "Managed IT Services",
     description:
       "Proactive IT support and monitoring ensuring business continuity with minimal downtime and maximum efficiency.",
-    icon: Icon.Monitor,
+    img: "/manage_service.png",
     accent: "#3b82f6",
     chips: [
       "Remote IT Support",
@@ -174,7 +172,7 @@ const ECOSYSTEM_CARDS: ServiceShowcaseCard[] = [
     title: "Application Development",
     description:
       "Custom applications from web and mobile to enterprise platforms — built for scale, performance, and longevity.",
-    icon: Icon.Code,
+    img: "/application_development.png",
     accent: "#60a5fa",
     chips: [
       "Web Applications",
@@ -191,7 +189,7 @@ const ECOSYSTEM_CARDS: ServiceShowcaseCard[] = [
     title: "CRM Development & Lifecycle",
     description:
       "Bespoke CRM systems that streamline sales, support, and customer lifecycle management across your organization.",
-    icon: Icon.CRM,
+    img: "/crm_development.png",
     accent: "#1d4ed8",
     chips: [
       "Custom CRM Systems",
@@ -203,7 +201,6 @@ const ECOSYSTEM_CARDS: ServiceShowcaseCard[] = [
     ],
   },
 ];
-
 /* ────────────────────────────────────────────────────────────────
    Org structure data
 ──────────────────────────────────────────────────────────────── */
@@ -254,6 +251,16 @@ function HeroSection() {
       id="portfolio-hero"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
     >
+
+      <div className="absolute top-24 right-6 md:top-24 md:right-12 z-20 ">
+        <Image 
+          src="/yaka_brand_logo.png"
+          alt="Yaka Brand Logo" 
+          width={80} 
+          height={40}
+          priority
+        />
+      </div>
       {/* Parallax background */}
       <motion.div
         style={{ y: bgY }}
@@ -323,12 +330,9 @@ function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.7, ease: EASE }}
-          className="mt-8 text-lg md:text-xl text-white/50 text-center max-w-2xl leading-relaxed"
+          className="mt-8 text-md md:text-lg text-white/50 text-center max-w-2xl leading-relaxed"
         >
-          Iitil is a full-stack technology services brand delivering scalable IT
-          services, enterprise applications, CRM systems, SaaS products,
-          automation and data intelligence solutions for businesses across India
-          and global markets.
+          ITIL is a full-stack technology services brand delivering scalable cloud infrastructure, enterprise applications, automation, and data intelligence solutions globally.
         </motion.p>
 
        

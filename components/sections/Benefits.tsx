@@ -90,14 +90,14 @@ export default function Benefits() {
             direction="bottom"
             delay={90}
             stepDuration={0.45}
-            className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white text-center justify-center max-w-4xl"
+            className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-white text-center justify-center max-w-4xl"
           />
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ delay: 0.4, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="mt-6 text-lg md:text-xl text-white/45 max-w-3xl leading-relaxed"
+            className="mt-6 text-md md:text-lg text-white/45 max-w-3xl leading-relaxed"
           >
             From financial services to healthcare, retail, manufacturing, telecom, and technology -
             we turn complexity into clarity, sector by sector.

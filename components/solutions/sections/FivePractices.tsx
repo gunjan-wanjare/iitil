@@ -1,6 +1,6 @@
 "use client";
 
-import { BarChart3, Brain, Cloud, Code2 } from "lucide-react";
+import { BarChart3, Brain, Cloud, Code2, Compass } from "lucide-react";
 import HorizontalScrollCards, {
   type HorizontalCardData,
 } from "@/components/solutions/HorizontalScrollCards";
@@ -23,20 +23,6 @@ const PRACTICE_CARDS: HorizontalCardData[] = [
     ],
   },
   {
-    id: "cloud",
-    tag: "3 · Cloud",
-    title: "Cloud & DevOps",
-    headline: "Ship faster. Sleep better.",
-    description: "Your releases get quicker; the system gets steadier.",
-    icon: <Cloud {...ICON} />,
-    accent: "#60a5fa",
-    bullets: [
-      "Platform engineering - golden paths, IDPs",
-      "Cloud security - zero-trust, IAM, posture",
-      "Migration - AWS, Azure, GCP",
-    ],
-  },
-  {
     id: "ai",
     tag: "2 · AI",
     title: "Artificial intelligence & ML",
@@ -51,6 +37,20 @@ const PRACTICE_CARDS: HorizontalCardData[] = [
     ],
   },
   {
+    id: "cloud",
+    tag: "3 · Cloud",
+    title: "Cloud & DevOps",
+    headline: "Ship faster. Sleep better.",
+    description: "Your releases get quicker; the system gets steadier.",
+    icon: <Cloud {...ICON} />,
+    accent: "#60a5fa",
+    bullets: [
+      "Platform engineering - golden paths, IDPs",
+      "Cloud security - zero-trust, IAM, posture",
+      "Migration - AWS, Azure, GCP",
+    ],
+  },
+  {
     id: "build",
     tag: "4 · Build",
     title: "Enterprise engineering",
@@ -60,8 +60,22 @@ const PRACTICE_CARDS: HorizontalCardData[] = [
     accent: "#1d4ed8",
     bullets: [
       "Product engineering - web, mobile, backend",
-      "Integrations -  ERP, CRM, billing",
+      "Integrations - ERP, CRM, billing",
       "Quality & reliability - test automation, SRE",
+    ],
+  },
+  {
+    id: "advisory",
+    tag: "5 · Advisory",
+    title: "Strategic advisory",
+    headline: "Strategy built by practitioners, not presenters.",
+    description: "Your technology blueprint aligns completely with real economic ROI.",
+    icon: <Compass {...ICON} />,
+    accent: "#38bdf8",
+    bullets: [
+      "Architecture evaluation & technical due diligence",
+      "Data & AI readiness assessments",
+      "Ecosystem modernization blueprints",
     ],
   },
 ];
@@ -69,9 +83,9 @@ const PRACTICE_CARDS: HorizontalCardData[] = [
 export default function FivePractices() {
   return (
     <HorizontalScrollCards
-      sectionId="four-practices"
-      label="The Four Practices"
-      heading="Four practices. One integrated delivery model."
+      sectionId="five-practices"
+      label="The Five Practices"
+      heading="Five practices. One integrated delivery model."
       description="Scroll through each practice — the screen locks until you've seen them all."
       cards={PRACTICE_CARDS}
       richCards

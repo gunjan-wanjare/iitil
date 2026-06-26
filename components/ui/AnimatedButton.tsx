@@ -23,7 +23,7 @@ export default function AnimatedButton({
   showArrow = true,
 }: AnimatedButtonProps) {
   const baseStyles =
-    "relative overflow-hidden inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-white transition-colors duration-300 cursor-pointer";
+    "relative overflow-hidden inline-flex items-center gap-2 px-8 py-5 rounded-full font-semibold text-white transition-colors duration-300 cursor-pointer";
 
   const variantStyles =
     variant === "primary"

@@ -242,32 +242,8 @@ export default function Testimonials() {
   return (
     <section className="relative py-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-20">
-        <div className="flex flex-col items-center text-center">
-          <div className="mb-6">
-            <PillLabel>Win Together</PillLabel>
-          </div>
-        </div>
+  
 
-        {/* Featured quote */}
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="max-w-3xl mx-auto mb-16 rounded-2xl p-10 text-center"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(37,99,235,0.06) 100%)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), 0 0 60px rgba(37,99,235,0.08)",
-          }}
-        >
-          <p className="text-xl md:text-2xl text-white/80 leading-relaxed italic">
-            &ldquo;{FEATURED_QUOTE.quote}&rdquo;
-          </p>
-          <p className="mt-6 text-sm font-semibold text-white">{FEATURED_QUOTE.name}</p>
-          <p className="text-xs text-white/40">{FEATURED_QUOTE.role}</p>
-        </motion.div>
       </div>
       <div className="mb-4">
         <MarqueeTrack testimonials={row1} direction="left" />

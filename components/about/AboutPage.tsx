@@ -12,7 +12,7 @@ import BlurText from "@/components/ui/BlurText";
 import PillLabel from "@/components/ui/PillLabel";
 import GlowCard from "@/components/ui/GlowCard";
 import AnimatedButton from "@/components/ui/AnimatedButton"; 
-
+import Image from "next/image";
 /* ────────────────────────────────────────────────────────────────
    Shared animation helpers
 ──────────────────────────────────────────────────────────────── */
@@ -42,6 +42,16 @@ function HeroSection() {
       ref={ref}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
     >
+
+      <div className="absolute top-24 right-6 md:top-24 md:right-12 z-20 ">
+        <Image 
+          src="/yaka_brand_logo.png"
+          alt="Yaka Brand Logo" 
+          width={80} 
+          height={40}
+          priority
+        />
+      </div>
       {/* ── Parallax background layer ── */}
       <motion.div
         style={{ y: bgY }}
@@ -119,7 +129,7 @@ function HeroSection() {
         </motion.div>
 
         <BlurText
-          text="Your data's all dots. We draw the line."
+          text="Connecting the dots. Engineering the truth."
           animateBy="words"
           direction="bottom"
           delay={80}
@@ -128,9 +138,31 @@ function HeroSection() {
         />
       </div>
 
+      <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className=" text-lg text-white/50 text-center max-w-4xl leading-relaxed flex flex-col gap-4"
+        >
+          <p>
+            We bridge the gaps across your legacy infrastructure, turning isolated data into real-time analytical power. Fragmented metrics become a single line of clear engineering truth.          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1.1, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="mt-10 flex flex-col sm:flex-row gap-4 items-center justify-center"
+        >
+          <AnimatedButton variant="primary" href="/reach-us">
+            Say less. Let&apos;s build.
+          </AnimatedButton>
+          
+        </motion.div>
+
       {/* Bottom fade */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-2 pointer-events-none"
         style={{
           background:
             "linear-gradient(to bottom, transparent 0%, rgba(2,8,23,1) 100%)",
@@ -140,147 +172,6 @@ function HeroSection() {
   );
 }
 
-/* ────────────────────────────────────────────────────────────────
-   Data Intelligence Visual (for Section 2 right panel)
-──────────────────────────────────────────────────────────────── */
-function DataIntelligenceVisual() {
-  const nodes = [
-    { label: "Analytics", color: "#2563eb", x: 50, y: 18 },
-    { label: "AI / ML", color: "#3b82f6", x: 20, y: 46 },
-    { label: "Cloud", color: "#60a5fa", x: 80, y: 46 },
-    { label: "DevOps", color: "#1d4ed8", x: 35, y: 74 },
-    { label: "Enterprise", color: "#2563eb", x: 65, y: 74 },
-  ];
-
-  const edges: [number, number][] = [
-    [0, 1],
-    [0, 2],
-    [1, 3],
-    [2, 4],
-    [1, 2],
-    [3, 4],
-  ];
-
-  return (
-    <div
-      className="relative w-full h-full rounded-2xl overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(135deg, rgba(10,20,40,0.95) 0%, rgba(7,14,26,1) 100%)",
-        border: "1px solid rgba(255,255,255,0.07)",
-        minHeight: "380px",
-      }}
-    >
-      {/* Top label */}
-      <div className="absolute top-5 left-5 flex items-center gap-2">
-        <div
-          className="w-2 h-2 rounded-full bg-[#2563eb]"
-          style={{ boxShadow: "0 0 6px rgba(37,99,235,0.8)" }}
-        />
-        <span className="text-xs text-white/30 font-medium tracking-widest uppercase">
-          Data Intelligence Platform
-        </span>
-      </div>
-
-      {/* SVG node graph */}
-      <svg
-        viewBox="0 0 100 100"
-        className="absolute inset-0 w-full h-full"
-        preserveAspectRatio="xMidYMid meet"
-        style={{ padding: "8%" }}
-      >
-        {/* Edges */}
-        {edges.map(([a, b], i) => (
-          <motion.line
-            key={i}
-            x1={nodes[a].x}
-            y1={nodes[a].y}
-            x2={nodes[b].x}
-            y2={nodes[b].y}
-            stroke="rgba(37,99,235,0.2)"
-            strokeWidth="0.6"
-            strokeDasharray="2 2"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
-          />
-        ))}
-
-        {/* Nodes */}
-        {nodes.map((n, i) => (
-          <g key={n.label}>
-            {/* Outer glow ring */}
-            <motion.circle
-              cx={n.x}
-              cy={n.y}
-              r="4.5"
-              fill="none"
-              stroke={n.color}
-              strokeWidth="0.5"
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 0.3, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 + i * 0.12, duration: 0.5 }}
-            />
-            {/* Core dot */}
-            <motion.circle
-              cx={n.x}
-              cy={n.y}
-              r="2.2"
-              fill={n.color}
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{
-                delay: 0.5 + i * 0.12,
-                duration: 0.5,
-                type: "spring",
-                stiffness: 300,
-                damping: 20,
-              }}
-            />
-          </g>
-        ))}
-      </svg>
-
-      {/* Labels — positioned absolutely */}
-      {nodes.map((n, i) => (
-        <motion.div
-          key={n.label}
-          className="absolute flex items-center justify-center px-2.5 py-1 rounded-lg text-[11px] font-semibold whitespace-nowrap"
-          style={{
-            left: `${n.x}%`,
-            top: `${n.y + 10}%`,
-            transform: "translateX(-50%)",
-            background: `${n.color}18`,
-            border: `1px solid ${n.color}35`,
-            color: n.color,
-          }}
-          initial={{ opacity: 0, y: 6 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 + i * 0.1, duration: 0.4 }}
-        >
-          {n.label}
-        </motion.div>
-      ))}
-
-      {/* Center glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(37,99,235,0.07) 0%, transparent 70%)",
-        }}
-      />
-    </div>
-  );
-}
-
-/* ────────────────────────────────────────────────────────────────
-   Section 2 — Company Overview
-──────────────────────────────────────────────────────────────── */
 function CompanyOverviewSection() {
   return (
     <section className="relative py-28 md:py-32 overflow-hidden">
@@ -340,21 +231,33 @@ function CompanyOverviewSection() {
             </div>
           </motion.div>
 
-          {/* Right — visual */}
+          {/* Right — Building Visual Image */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.8, ease: EASE, delay: 0.15 }}
-            className="h-[420px]"
+            className="h-[420px] w-full relative rounded-2xl overflow-hidden border border-white/[0.06] bg-slate-950"
           >
-            <DataIntelligenceVisual />
+            <Image
+              src="/iitil_building.png"
+              alt="Corporate headquarters building"
+              fill
+              sizes="(max-w-768px) 100vw, 50vw"
+              className="object-cover transition-transform duration-700 hover:scale-[1.03]"
+              priority
+            />
+            {/* Soft ambient dark overlay framework matching project layouts */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-40 pointer-events-none" />
+            <div className="absolute inset-0 bg-blue-500/[0.02] mix-blend-color pointer-events-none" />
           </motion.div>
         </div>
       </div>
     </section>
   );
 }
+
+
 
 /* ────────────────────────────────────────────────────────────────
    Section 3 — Vision / Mission / Leadership
@@ -378,8 +281,7 @@ const VML_CARDS = [
     letter: "L",
     label: "Leadership",
     color: "#60a5fa",
-    content:
-      "We're run by people who've done the work. Our leadership brings deep expertise across data science, technology architecture, and enterprise operations and a rare combination of vision and follow-through. We set the strategy and we deliver it. Every engagement is measured by the value it creates, not the slides it produces.",
+    content: "We are practitioners, not presenters. Our leadership couples strategic vision with deep engineering and architecture expertise to deliver measurable project value—never just slides."
   },
 ];
 

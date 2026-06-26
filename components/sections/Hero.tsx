@@ -18,10 +18,10 @@ const MARQUEE_LOGOS = [
 ];
 
 const HERO_METRICS = [
-  { value: "150+", label: "Enterprise programmes delivered" },
-  { value: "12+", label: "Industries served" },
-  { value: "4", label: "Continents covered" },
-  { value: "6 weeks", label: "Average time-to-value (yes, weeks" },
+  { value: "150+", label: "Programs Delivered" },
+  { value: "12+", label: "Industries Served" },
+  { value: "4", label: "Continents Covered" },
+  { value: "6 weeks", label: "Time-to-Value" },
 ] as const;
 
 const PROBLEMS = [
@@ -96,12 +96,12 @@ export default function Hero() {
             style={{ boxShadow: "0 0 6px rgba(37,99,235,0.8)" }}
           />
           <span className="text-sm text-white/70 font-medium tracking-wide leading-snug">
-            Companies that actually use their data outperform the ones hoarding it by 2.3× !
+            Data-driven companies outperform data hoarders by 2.3×
           </span>
         </motion.div>
 
         <BlurText
-          text="Your data can give you much more!"
+          text="Multiply Your Growth with Your Own Data"
           animateBy="words"
           direction="bottom"
           delay={80}
@@ -116,9 +116,7 @@ export default function Hero() {
           className="mt-8 text-lg text-white/50 text-center max-w-4xl leading-relaxed flex flex-col gap-4"
         >
           <p>
-            That&apos;s our work. IITIL brings your fragmented systems, scattered insights, and
-            disconnected workflows together into one intelligent ecosystem, turning information into
-            intelligence, and intelligence into outcomes you can measure. All tailored to you.
+            IITIL unifies your fragmented systems, workflows, and insights into one intelligent, custom ecosystem. We turn scattered information into measurable outcomes tailored entirely to you.
           </p>
         </motion.div>
 
@@ -146,16 +144,13 @@ export default function Hero() {
           {HERO_METRICS.map((metric, i) => (
             <div
               key={metric.label}
-              className="rounded-2xl px-5 py-6 text-center"
-              style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.07)",
-              }}
+              className=""
+              
             >
               <p className="text-3xl md:text-4xl font-semibold text-white tabular-nums">
                 {metric.value}
               </p>
-              <p className="mt-2 text-xs md:text-sm text-white/45 leading-relaxed">
+              <p className="mt-2 text-xs md:text-sm text-white leading-relaxed">
                 {metric.label}
               </p>
             </div>

@@ -1,215 +1,18 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import BlurText from "@/components/ui/BlurText";
 import PillLabel from "@/components/ui/PillLabel";
 import GlowCard from "@/components/ui/GlowCard";
 import AnimatedButton from "@/components/ui/AnimatedButton";
 
-const LIVE_OUTCOMES = [
-  { value: "$140M+", label: "Client value delivered" },
-  { value: "98%", label: "Repeat engagement rate" },
-  { value: "98.7%", label: "Delivery success rate" },
-  { value: "32%", label: "Average revenue impact" },
-  { value: "98.5%", label: "Model accuracy across selected AI programmes" },
-] as const;
-
-/* ─── Donut Chart ─── */
-function DonutChart() {
-  const radius = 52;
-  const circ = 2 * Math.PI * radius;
-  const percent = 0.75;
-
-  return (
-    <div className="flex items-center gap-8">
-      <div className="relative w-32 h-32 flex-shrink-0">
-        <svg viewBox="0 0 120 120" className="w-full h-full -rotate-90">
-          <circle cx="60" cy="60" r={radius} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="14" />
-          <motion.circle
-            cx="60"
-            cy="60"
-            r={radius}
-            fill="none"
-            stroke="url(#donutGrad)"
-            strokeWidth="14"
-            strokeLinecap="round"
-            strokeDasharray={circ}
-            initial={{ strokeDashoffset: circ }}
-            whileInView={{ strokeDashoffset: [circ, circ * (1 - percent)] }}
-            viewport={{ once: false }}
-            transition={{
-              duration: 1.6,
-              ease: [0.25, 0.46, 0.45, 0.94],
-              repeat: Infinity,
-              repeatDelay: 1.5,
-              repeatType: "loop",
-            }}
-            style={{ strokeDashoffset: circ * (1 - percent) }}
-          />
-          <defs>
-            <linearGradient id="donutGrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#60a5fa" />
-              <stop offset="50%" stopColor="#2563eb" />
-              <stop offset="100%" stopColor="#1d4ed8" />
-            </linearGradient>
-          </defs>
-        </svg>
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-2xl font-semibold text-white">40%</span>
-          <span className="text-[10px] text-white/40">Efficiency</span>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-3">
-        {[
-          { label: "Efficiency Gain", value: "40%", color: "#60a5fa" },
-          { label: "Revenue Growth", value: "32%", color: "#2563eb" },
-          { label: "Hours Saved / mo", value: "200h", color: "#1d4ed8" },
-        ].map((item, i) => (
-          <div key={i} className="flex items-center justify-between gap-6">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full" style={{ background: item.color }} />
-              <span className="text-sm text-white/50">{item.label}</span>
-            </div>
-            <span className="text-sm font-semibold text-white">{item.value}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ─── Bar Chart ─── */
-function BarChart() {
-  const bars = [3, 5, 4, 7, 6, 8, 7, 9, 8, 10];
-
-  return (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-end gap-3 h-24">
-        {bars.map((h, i) => (
-          <motion.div
-            key={i}
-            className="flex-1 rounded-t-sm"
-            style={{
-              background:
-                i === bars.length - 1
-                  ? "linear-gradient(to top, #1d4ed8, #2563eb)"
-                  : `rgba(37,99,235,${0.2 + i * 0.05})`,
-              height: `${h * 10}%`,
-              transformOrigin: "bottom",
-            }}
-            initial={{ scaleY: 0 }}
-            whileInView={{ scaleY: [0, h / 10, h / 10, 0] }}
-            viewport={{ once: false }}
-            transition={{
-              duration: 2.5,
-              delay: i * 0.05,
-              repeat: Infinity,
-              repeatDelay: 0.5,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-          />
-        ))}
-      </div>
-      <div className="flex justify-between text-[10px] text-white/25">
-        {["Jan", "Mar", "May", "Jul", "Sep"].map((m) => (
-          <span key={m}>{m}</span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ─── Uptime Meter ─── */
-function UptimeMeter() {
-  return (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-end gap-1.5 h-20">
-        {Array.from({ length: 30 }, (_, i) => (
-          <motion.div
-            key={i}
-            className="flex-1 rounded-t-sm"
-            style={{
-              background:
-                i > 24
-                  ? "linear-gradient(to top, #2563eb, #60a5fa)"
-                  : "rgba(37,99,235,0.3)",
-              transformOrigin: "bottom",
-            }}
-            initial={{ scaleY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: false }}
-            transition={{
-              duration: 0.4,
-              delay: i * 0.03,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-          />
-        ))}
-      </div>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-[#60a5fa]" style={{ boxShadow: "0 0 6px rgba(96,165,250,0.5)" }} />
-          <span className="text-sm text-white/60">100% Uptime during migration</span>
-        </div>
-        <span className="text-xs text-[#60a5fa] font-semibold px-2 py-1 rounded-full" style={{ background: "rgba(37,99,235,0.12)" }}>LIVE</span>
-      </div>
-    </div>
-  );
-}
-
 export default function CaseStudies() {
   return (
     <section className="relative py-32">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Live Outcomes */}
-        <div className="flex flex-col items-center text-center mb-20">
-          <div className="mb-6">
-            <PillLabel>Live Outcomes</PillLabel>
-          </div>
-          <BlurText
-            text="Less noise. More measurable impact."
-            animateBy="words"
-            direction="bottom"
-            delay={90}
-            stepDuration={0.45}
-            className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white text-center justify-center max-w-4xl"
-          />
-        </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
-          {LIVE_OUTCOMES.map((metric, i) => (
-            <motion.div
-              key={metric.label}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.6 }}
-              className="rounded-2xl px-4 py-6 text-center"
-              style={{
-                background: "rgba(255,255,255,0.02)",
-                border: "1px solid rgba(255,255,255,0.06)",
-              }}
-            >
-              <p className="text-2xl md:text-3xl font-semibold text-[#2563eb] tabular-nums">
-                {metric.value}
-              </p>
-              <p className="mt-2 text-xs md:text-sm text-white/45 leading-snug">{metric.label}</p>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center text-base text-white/40 mb-24"
-        >
-          Numbers we&apos;re happy to be held to.
-        </motion.p>
-
-        {/* Proof beats promises */}
+        {/* Proof beats promises Header */}
         <div className="flex flex-col items-center text-center mb-20">
           <div className="mb-6">
             <PillLabel>Proof Beats Promises</PillLabel>
@@ -220,7 +23,7 @@ export default function CaseStudies() {
             direction="bottom"
             delay={90}
             stepDuration={0.45}
-            className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white text-center justify-center"
+            className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-white text-center justify-center"
           />
         </div>
 
@@ -250,7 +53,17 @@ export default function CaseStudies() {
               </div>
             </div>
 
-            <DonutChart />
+            {/* Image Container with visibility fix */}
+            <div className="relative w-full h-52 rounded-xl overflow-hidden bg-slate-900 border border-white/[0.08] mb-6">
+              <Image 
+                src="/data_intelligence.jpg" 
+                alt="Data Intelligence Ecosystem Analytics" 
+                fill
+                sizes="(max-w-768px) 100vw, 50vw"
+                className="object-cover"
+                priority
+              />
+            </div>
 
             <div className="mt-8 pt-6 border-t border-white/[0.06]">
               <h4 className="text-xl font-semibold text-white mb-2">
@@ -293,18 +106,16 @@ export default function CaseStudies() {
               </div>
             </div>
 
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-4xl font-semibold text-white">$2.4M</span>
-              <div className="flex items-center gap-1 text-[#60a5fa] text-sm font-semibold">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                </svg>
-                98.5%
-              </div>
-              <span className="text-sm text-white/40">Accuracy Rate</span>
+            {/* Image Container with visibility fix */}
+            <div className="relative w-full h-52 rounded-xl overflow-hidden bg-slate-900 border border-white/[0.08] mb-6">
+              <Image 
+                src="/ai_ml_learning.jpg" 
+                alt="AI Demand Forecasting Performance Matrix" 
+                fill
+                sizes="(max-w-768px) 100vw, 50vw"
+                className="object-cover"
+              />
             </div>
-
-            <BarChart />
 
             <div className="mt-8 pt-6 border-t border-white/[0.06]">
               <h4 className="text-xl font-semibold text-white mb-2">
@@ -323,7 +134,7 @@ export default function CaseStudies() {
             </div>
           </GlowCard>
 
-          {/* Case Study 3 — Cloud Migration (full width) */}
+          {/* Case Study 3 — Cloud Migration (Full Width) */}
           <GlowCard delay={0.2} className="md:col-span-2">
             <div className="flex flex-col md:flex-row gap-8 md:items-start">
               <div className="flex-1">
@@ -370,8 +181,16 @@ export default function CaseStudies() {
                   Read the story
                 </AnimatedButton>
               </div>
-              <div className="flex-1">
-                <UptimeMeter />
+              
+              {/* Image Container with visibility fix */}
+              <div className="flex-1 w-full relative h-52 md:h-64 rounded-xl overflow-hidden bg-slate-900 border border-white/[0.08]">
+                <Image 
+                  src="/cloud_migration.jpg" 
+                  alt="Infrastructure Zero Downtime Real-time Analytics System" 
+                  fill
+                  sizes="(max-w-1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
               </div>
             </div>
           </GlowCard>

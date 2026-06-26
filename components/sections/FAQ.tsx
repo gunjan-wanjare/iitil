@@ -122,7 +122,7 @@ export default function FAQ() {
             direction="bottom"
             delay={90}
             stepDuration={0.45}
-            className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white text-center justify-center max-w-4xl"
+            className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-white text-center justify-center max-w-4xl"
           />
           <motion.p
             initial={{ opacity: 0, y: 20 }}

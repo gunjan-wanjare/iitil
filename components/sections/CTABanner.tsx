@@ -10,28 +10,7 @@ export default function CTABanner() {
     <section className="relative py-20 px-6">
       <div className="max-w-5xl mx-auto flex flex-col gap-8">
         {/* Built on Trust */}
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="text-center px-6"
-        >
-          <div className="mb-5">
-            <PillLabel>Built on Trust</PillLabel>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-white mb-4">
-            Intelligence is only useful when you can trust it.
-          </h2>
-          <p className="text-lg text-white/50 max-w-2xl mx-auto leading-relaxed">
-            Data and AI earn their power from being secure, explainable, and governed. We build
-            privacy, access control, monitoring, compliance readiness, and responsible-AI
-            principles into the foundation not the footnotes.
-          </p>
-          <p className="mt-4 text-base font-medium text-white/70">
-            Because better intelligence starts with better trust.
-          </p>
-        </motion.div>
+        
 
         {/* Let's Build */}
         <motion.div
@@ -66,30 +45,32 @@ export default function CTABanner() {
           />
 
           <div className="relative z-10 flex flex-col items-center">
-            <div className="mb-6">
-              <PillLabel>Let&apos;s Build</PillLabel>
-            </div>
+           
+<motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="text-center px-6"
+        >
+          <div className="mb-5">
+            <PillLabel>Built on Trust</PillLabel>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-white mb-4">
+            Intelligence is only useful when you can trust it.
+          </h2>
+          <p className="text-lg text-white/50 max-w-2xl mx-auto leading-relaxed">
+            Data and AI earn their power from being secure, explainable, and governed. We build
+            privacy, access control, monitoring, compliance readiness, and responsible-AI
+            principles into the foundation not the footnotes.
+          </p>
+          <p className="mt-4 text-base font-medium text-white/70">
+            Because better intelligence starts with better trust.
+          </p>
+        </motion.div>
+          
 
-            <BlurText
-              text="Still reading? Then your data's probably underperforming."
-              animateBy="words"
-              direction="bottom"
-              delay={90}
-              stepDuration={0.45}
-              className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white text-center justify-center max-w-3xl"
-            />
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="mt-6 text-lg md:text-xl text-white/50 max-w-xl leading-relaxed"
-            >
-              Tell us what you&apos;re trying to solve. We&apos;ll help you find the fastest path
-              from fragmented data to intelligent outcomes - usually with a few sharp questions
-              and a suggested next step within one business day.
-            </motion.p>
+            
 
             <motion.div
               initial={{ opacity: 0, y: 16 }}

@@ -10,6 +10,7 @@ import PillLabel from "@/components/ui/PillLabel";
 import GlowCard from "@/components/ui/GlowCard";
 import AnimatedButton from "@/components/ui/AnimatedButton";
 import ContactForm from "@/components/reach-us/ContactForm";
+import Image from "next/image";
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -51,6 +52,15 @@ function HeroSection() {
       id="reach-us-hero"
       className="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden"
     >
+      <div className="absolute top-24 right-6 md:top-24 md:right-12 z-20 ">
+        <Image 
+          src="/yaka_brand_logo.png"
+          alt="Yaka Brand Logo" 
+          width={80} 
+          height={40}
+          priority
+        />
+      </div>
       <motion.div
         style={{ y: bgY }}
         className="absolute inset-0 pointer-events-none will-change-transform"
@@ -255,72 +265,17 @@ const ContactSection = memo(function ContactSection() {
 
           {/* Contact details — right */}
           <motion.div {...fadeUp(0.15)} className="lg:col-span-2">
-            <div
-              className="rounded-2xl p-7 md:p-8 h-full relative overflow-hidden"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(37,99,235,0.08) 0%, rgba(9,15,28,0.95) 50%, rgba(37,99,235,0.06) 100%)",
-                border: "1px solid rgba(37,99,235,0.18)",
-                boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.08), 0 0 0 1px rgba(37,99,235,0.10)",
-              }}
-            >
-              <div
-                aria-hidden
-                className="absolute top-0 left-0 w-full h-1/2 pointer-events-none"
-                style={{
-                  background:
-                    "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(37,99,235,0.10) 0%, transparent 70%)",
-                }}
+            
+              
+
+              <div className="relative w-full aspect-[5/9] rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+              <Image
+                src="/contact.png"
+                alt="Contact visualization"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
               />
-
-              <div className="relative z-10">
-                <h3 className="text-2xl font-semibold text-white mb-8 tracking-tight">
-                  Engage With Us
-                </h3>
-
-                <div className="space-y-6">
-                  {CONTACT_ITEMS.map((item, i) => (
-                    <motion.div
-                      key={item.label}
-                      initial={{ opacity: 0, x: 16 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.2 + i * 0.1, duration: 0.5, ease: EASE }}
-                      whileHover={{ x: 4 }}
-                      className="flex gap-4 group"
-                    >
-                      <div
-                        className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-shadow duration-300 group-hover:shadow-lg"
-                        style={{
-                          background: `${item.accent}18`,
-                          border: `1px solid ${item.accent}30`,
-                          boxShadow: `0 0 0 0 ${item.accent}00`,
-                        }}
-                      >
-                        <item.icon size={18} style={{ color: item.accent }} />
-                      </div>
-                      <div>
-                        <p className="text-xs font-semibold tracking-widest uppercase text-white/40 mb-1">
-                          {item.label}
-                        </p>
-                        {item.href ? (
-                          <a
-                            href={item.href}
-                            className="text-sm text-white/70 hover:text-white transition-colors duration-200 whitespace-pre-line"
-                          >
-                            {item.value}
-                          </a>
-                        ) : (
-                          <p className="text-sm text-white/70 whitespace-pre-line leading-relaxed">
-                            {item.value}
-                          </p>
-                        )}
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
             </div>
           </motion.div>
         </div>
@@ -473,76 +428,6 @@ const LocationSection = memo(function LocationSection() {
   );
 });
 
-/* ────────────────────────────────────────────────────────────────
-   Section 5 — CTA
-──────────────────────────────────────────────────────────────── */
-const CTASection = memo(function CTASection() {
-  return (
-    <section className="py-28 px-6">
-      <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ type: "spring", stiffness: 180, damping: 22 }}
-          className="relative rounded-3xl px-8 py-20 flex flex-col items-center text-center overflow-hidden"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(37,99,235,0.12) 0%, rgba(9,15,28,0.95) 50%, rgba(37,99,235,0.06) 100%)",
-            border: "1px solid rgba(37,99,235,0.2)",
-            boxShadow:
-              "inset 0 1px 0 rgba(255,255,255,0.08), 0 0 80px rgba(37,99,235,0.12)",
-          }}
-        >
-          <motion.div
-            animate={{ y: [0, -12, 0], opacity: [0.2, 0.4, 0.2] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-            aria-hidden
-            className="absolute top-8 left-1/4 w-48 h-48 rounded-full pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%)",
-            }}
-          />
-
-          <div className="relative z-10 flex flex-col items-center">
-            <BlurText
-              text="Ready to Start Your Digital Transformation Journey?"
-              animateBy="words"
-              direction="bottom"
-              delay={70}
-              stepDuration={0.4}
-              className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-white text-center justify-center max-w-3xl"
-            />
-
-            <motion.p
-              {...fadeUp(0.35)}
-              className="mt-6 text-lg text-white/50 max-w-xl leading-relaxed"
-            >
-              Partner with IITIL to unlock intelligent solutions, accelerate
-              innovation, and achieve measurable business outcomes.
-            </motion.p>
-
-            <motion.div
-              {...fadeUp(0.5)}
-              className="mt-10 flex flex-col sm:flex-row gap-4 items-center"
-            >
-              <AnimatedButton
-                variant="primary"
-                onClick={() => scrollToSection("contact-form")}
-              >
-                Get In Touch
-              </AnimatedButton>
-              <AnimatedButton variant="ghost" href="/reach-us">
-                Talk to a Specialist
-              </AnimatedButton>
-            </motion.div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-});
 
 /* ────────────────────────────────────────────────────────────────
    Root page
@@ -591,7 +476,6 @@ export default function ReachUsPage() {
       </div>
 
       <LocationSection />
-      <CTASection />
       <Footer />
     </main>
   );
