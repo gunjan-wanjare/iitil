@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import BlurText from "@/components/ui/BlurText";
 import PillLabel from "@/components/ui/PillLabel";
 import { EASE } from "@/lib/animations";
+import Image from "next/image"; 
 
 export default function TeamHero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -20,6 +21,20 @@ export default function TeamHero() {
       className="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden"
       aria-labelledby="team-hero-heading"
     >
+
+       <div className="hidden md:block md:absolute md:top-28 md:right-12 z-30 pointer-events-none">
+        <div className="pointer-events-auto">
+          <Image 
+            src="/yaka_brand_logo.png"
+            alt="Yaka Brand Logo" 
+            width={80} 
+            height={40}
+            priority
+            className="w-20 h-auto"
+          />
+        </div>
+      </div>
+
       <motion.div
         style={{ y: bgY }}
         className="absolute inset-0 pointer-events-none will-change-transform"
