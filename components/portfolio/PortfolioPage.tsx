@@ -100,7 +100,7 @@ const PROJECT_CARDS: ServiceShowcaseCard[] = [
   {
     id: "pcx",
     tag: "Property",
-    title: "Property Care X",
+    title: "Propertizer",
     description:
       "An integrated property management and support platform designed to handle end-to-end property needs.",
     img: "/property_care.png",

@@ -46,7 +46,7 @@ export const LEADERSHIP_MEMBERS: TeamMember[] = [
     experience: "20+ years",
     bio: "Jhonny Panchal is a visionary technology leader with extensive experience spanning software development, management, and organizational leadership. Holding a Master's Degree in Computer Science and Engineering, he brings a strong technical foundation paired with sharp strategic thinking to every endeavour. At IITIL, Jhonny drives the company's growth through bold innovation, forward-looking strategy, and a relentless focus on delivering value to clients and stakeholders alike. His leadership philosophy centers on building high-performing teams and scalable solutions that address real-world business challenges. He is committed to positioning IITIL as a globally recognized leader in data intelligence and technology — empowering organizations to make smarter decisions and achieve sustainable growth through the power of innovation.",
     skills: ["Strategy", "Technology Leadership", "Enterprise Architecture", "Innovation"],
-    image: "/team/jhonny-panchal.png",
+    image: "/team/jhonny-panchal.jpg",
     linkedin: "https://www.linkedin.com/company/iitil-cipl/",
     email: "business@iitil.com",
     isLeadership: true,

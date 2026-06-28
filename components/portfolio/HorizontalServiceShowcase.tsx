@@ -52,7 +52,7 @@ function RowSideVisual({ img }: { img: any }) {
         alt="Service showcase feature visual" 
         fill
         className="object-cover transition-transform duration-500 hover:scale-[1.015]" 
-        sizes="(max-w-1024px) 100vw, 30vw"
+        sizes="(max-w-1024px) 100vw, 40vw"
         priority
       />
       <div className="absolute inset-0 bg-gradient-to-r from-transparent to-slate-950/40 pointer-events-none" />
@@ -84,7 +84,8 @@ const MobileShowcaseCard = memo(function MobileShowcaseCard({
         boxShadow: `inset 0 1px 0 rgba(255,255,255,0.08), 0 0 0 1px ${card.accent}18`,
       }}
     >
-      <div className="w-full sm:w-2/5 flex-shrink-0">
+      {/* INCRESED: Mobile image wrapper size from sm:w-2/5 (40%) to sm:w-[45%] */}
+      <div className="w-full sm:w-[45%] flex-shrink-0">
         <RowSideVisual img={card.img} />
       </div>
 
@@ -142,7 +143,7 @@ const DesktopShowcaseCard = memo(function DesktopShowcaseCard({
       transition={{ type: "spring", stiffness: 260, damping: 25 }}
       className="flex-shrink-0 rounded-2xl flex flex-row p-7 gap-7 relative overflow-visible cursor-default hover:z-10 transition-zIndex duration-100 items-stretch"
       style={{
-        width: "clamp(680px, 50vw, 860px)", 
+        width: "clamp(740px, 55vw, 920px)", // Slightly wider container bounds to account for wider image
         height: "54vh", 
         minHeight: "420px",
         maxHeight: "540px",
@@ -152,16 +153,15 @@ const DesktopShowcaseCard = memo(function DesktopShowcaseCard({
         boxShadow: `inset 0 1px 0 rgba(255,255,255,0.10), 0 0 0 1px ${card.accent}15, 0 25px 50px -12px rgba(0,0,0,0.5)`,
       }}
     >
-      {/* LEFT SIDE: Image Column */}
-      <div className="w-[40%] flex-shrink-0 h-full">
+      {/* INCREASED: Left image column changed from w-[40%] to w-[48%] */}
+      <div className="w-[48%] flex-shrink-0 h-full">
         <RowSideVisual img={card.img} />
       </div>
 
-      {/* RIGHT SIDE: Content Column */}
-      <div className="relative z-10 flex flex-col flex-1 h-full py-1 text-left justify-between">
+      {/* BALANCED: Right Content column changed from flex-1 to w-[52%] */}
+      <div className="relative z-10 flex flex-col w-[52%] h-full py-1 text-left justify-between pl-2">
         <div className="flex flex-col gap-4">
           <div>
-            {/* UPGRADED: Main Category Tag Size */}
             <span
               className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase"
               style={{
@@ -174,12 +174,10 @@ const DesktopShowcaseCard = memo(function DesktopShowcaseCard({
             </span>
           </div>
 
-          {/* UPGRADED: Card Header Title */}
           <h3 className="text-2xl font-bold text-white tracking-tight leading-tight">
             {card.title}
           </h3>
 
-          {/* UPGRADED: Core Description Paragraph */}
           <p className="text-sm lg:text-[15px] text-white/65 leading-relaxed overflow-y-auto pr-1 no-scrollbar">
             {card.description}
           </p>
@@ -189,7 +187,6 @@ const DesktopShowcaseCard = memo(function DesktopShowcaseCard({
         <div className="flex flex-col gap-5 mt-4 flex-shrink-0">
           {card.features && (
             <div className="flex flex-wrap gap-2">
-              {/* UPGRADED: Feature Badge Text and Sizing */}
               {card.features.slice(0, 4).map((f) => (
                 <span
                   key={f}
@@ -207,7 +204,6 @@ const DesktopShowcaseCard = memo(function DesktopShowcaseCard({
 
           {card.chips && !card.features && (
             <div className="grid grid-cols-2 gap-2">
-              {/* UPGRADED: Grid Chip Text and Sizing */}
               {card.chips.slice(0, 4).map((c) => (
                 <span
                   key={c}
