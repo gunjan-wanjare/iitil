@@ -97,9 +97,6 @@ const LeadershipCard = memo(function LeadershipCard({
               {member.designation}
             </p>
 
-            <p className="text-[9.5px] font-bold uppercase tracking-widest text-white/25 mb-3">
-              {member.experience} experience
-            </p>
 
             <p className="text-white/50 leading-relaxed text-sm  max-w-sm">
               {member.bio}
