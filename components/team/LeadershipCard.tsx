@@ -56,9 +56,7 @@ const LeadershipCard = memo(function LeadershipCard({
           {/* Content Panel */}
           <div className="flex flex-col justify-center flex-grow p-8 md:p-10 lg:p-14 z-10">
             <div className="mb-5">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-3">
-                {member.experience} experience
-              </p>
+
               <h3 className="text-3xl md:text-4xl font-semibold text-white tracking-tight leading-tight">
                 {member.name}
               </h3>
