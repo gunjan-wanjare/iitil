@@ -18,11 +18,9 @@ const MARQUEE_LOGOS = [
 ];
 const HERO_METRICS = [
   { value: "150+", label: "Programs Delivered" },
-  { value: "12+", label: "Industries Served" },
-  { value: "₹1Cr+", label: "Revenue Generated" },
-  { value: "6 weeks", label: "Time-to-Value" },
+  { value: "12+", label: "Industries Serving" },
+  { value: "₹100Cr+", label: "Portfolio Managing" },
 ] as const;
-
 
 const PROBLEMS = [
   {
@@ -137,19 +135,19 @@ export default function Hero() {
           </AnimatedButton>
         </motion.div>
 
-        {/* Hero metrics */}
+        {/* Hero metrics - Updated to stay single-row across all devices */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.3, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-4xl"
+          className="mt-16 flex flex-row items-start justify-between gap-2 md:gap-6 w-full max-w-4xl"
         >
           {HERO_METRICS.map((metric, i) => (
-            <div key={metric.label} className="">
-              <p className="text-3xl md:text-4xl font-semibold text-white tabular-nums">
+            <div key={metric.label} className="flex-1 px-1 text-center">
+              <p className="text-[6.5vw] sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white tabular-nums leading-none">
                 {metric.value}
               </p>
-              <p className="mt-2 text-xs md:text-sm text-white leading-relaxed">
+              <p className="mt-2 text-[2.8vw] sm:text-xs md:text-sm text-white/70 leading-tight max-w-[120px] sm:max-w-none mx-auto">
                 {metric.label}
               </p>
             </div>

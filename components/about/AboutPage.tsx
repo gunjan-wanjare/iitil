@@ -245,7 +245,7 @@ function CompanyOverviewSection() {
             className="h-[420px] w-full relative rounded-2xl overflow-hidden border border-white/[0.06] bg-slate-950"
           >
             <Image
-              src="/iitil_building.png"
+              src="/about_img.jpg"
               alt="Corporate headquarters building"
               fill
               sizes="(max-w-768px) 100vw, 50vw"

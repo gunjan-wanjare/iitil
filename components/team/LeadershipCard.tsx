@@ -18,12 +18,6 @@ const LeadershipCard = memo(function LeadershipCard({
   variant = "portrait",
 }: LeadershipCardProps) {
   const isLandscape = variant === "landscape";
-  
-  // Logic: Only the first member (e.g., CEO) gets the taller aspect ratio (4/5), 
-  // everyone else gets a perfect square (1/1). 
-  // You can change 'index === 0' to a condition like 'member.role === "CEO"'
-  const isSpecialVariant = index === 0;
-  const portraitAspectRatio = isSpecialVariant ? "aspect-[4/5]" : "aspect-square";
 
   return (
     <motion.article
@@ -35,101 +29,84 @@ const LeadershipCard = memo(function LeadershipCard({
         visible: { opacity: 1, y: 0 },
       }}
       transition={{ delay: index * 0.1, duration: 0.7, ease: EASE }}
-      className={`group relative rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02]
-        transition-[transform,box-shadow] duration-500
-        hover:scale-[1.015]
-        hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_0_1px_rgba(37,99,235,0.28),0_20px_40px_rgba(0,0,0,0.4)]
-        ${isLandscape ? "flex flex-col md:flex-row" : "flex flex-col"}
+      className={`relative rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02] w-full
+        ${isLandscape ? "flex flex-col md:flex-row items-stretch min-h-[400px]" : "flex flex-col items-center text-center p-6 pt-8"}
       `}
-      style={{ transitionTimingFunction: "cubic-bezier(0.25,0.46,0.45,0.94)" }}
     >
-      {/* Image Container */}
-      <div
-        className={`relative overflow-hidden flex-shrink-0
-          ${isLandscape
-            ? "w-full md:w-[38%] aspect-[16/9] md:aspect-auto md:min-h-[320px]"
-            : portraitAspectRatio // Applies aspect-square to everyone except index 0
-          }
-        `}
-      >
-        <div
-          className="absolute inset-0 group-hover:[transform:scale(1.06)] transition-transform duration-500 will-change-transform"
-          style={{ transitionTimingFunction: "cubic-bezier(0.25,0.46,0.45,0.94)" }}
-        >
-          <TeamMemberImage
-            src={member.image}
-            alt={`Portrait of ${member.name}`}
-            name={member.name}
-            priority={index < 2}
-            className="w-full h-full object-cover object-top"
-            sizes={
-              isLandscape
-                ? "(max-width: 768px) 100vw, 40vw"
-                : "(max-width: 768px) 100vw, 33vw"
-            }
-          />
-        </div>
+      {/* ── LANDSCAPE VARIANT (CEO) ── */}
+      {isLandscape && (
+        <>
+          {/* Image Container */}
+          <div className="relative w-full md:w-[45%] min-h-[300px] md:min-h-[440px] overflow-hidden flex-shrink-0">
+            <TeamMemberImage
+              src={member.image}
+              alt={`Portrait of ${member.name}`}
+              name={member.name}
+              priority={index < 2}
+              className="w-full h-full object-cover object-top"
+              sizes="(max-width: 768px) 100vw, 45vw"
+            />
+            {/* Gradient overlay wrapping smoothly into the dark theme */}
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-transparent via-[#020817]/20 to-[#020817]"
+            />
+          </div>
 
-        {/* Gradient */}
-        <div
-          aria-hidden
-          className={`absolute inset-0 ${
-            isLandscape
-              ? "bg-gradient-to-r from-transparent via-[#020817]/10 to-[#020817]"
-              : "bg-gradient-to-t from-[#020817] via-[#020817]/40 to-transparent"
-          }`}
-        />
-
-        {!isLandscape && (
-          <div className="absolute bottom-0 left-0 right-0 p-6 md:p-7">
-            <h3 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">
-              {member.name}
-            </h3>
-            <p className="mt-1 text-sm font-medium text-[#60a5fa]">
-              {member.designation}
+          {/* Content Panel */}
+          <div className="flex flex-col justify-center flex-grow p-8 md:p-10 lg:p-14 z-10">
+            <div className="mb-5">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-3">
+                {member.experience} experience
+              </p>
+              <h3 className="text-3xl md:text-4xl font-semibold text-white tracking-tight leading-tight">
+                {member.name}
+              </h3>
+              <p className="mt-2 text-base font-medium text-[#60a5fa]">
+                {member.designation}
+              </p>
+            </div>
+            <p className="text-white/50 leading-relaxed text-sm md:text-[0.9rem]">
+              {member.bio}
             </p>
           </div>
-        )}
-      </div>
+        </>
+      )}
 
-      {/* Content */}
-      <div
-        className={`flex flex-col justify-center flex-grow
-          ${isLandscape ? "p-8 md:p-10 lg:p-12" : "p-6 md:p-7"}
-        `}
-      >
-        {isLandscape && (
-          <div className="mb-5">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#3b82f6]/70 mb-2">
-              Leadership
-            </p>
-            <h3 className="text-3xl md:text-4xl font-semibold text-white tracking-tight">
+      {/* ── PORTRAIT VARIANT (CMO, HR, etc.) ── */}
+      {!isLandscape && (
+        <>
+          {/* Top Center Circular Image */}
+          <div className="relative w-48 h-48 md:w-52 md:h-52 rounded-full overflow-hidden border-2 border-white/[0.1] flex-shrink-0 shadow-xl mb-6">
+            <TeamMemberImage
+              src={member.image}
+              alt={`Portrait of ${member.name}`}
+              name={member.name}
+              priority={index < 3}
+              className="w-full h-full object-cover object-top"
+              sizes="(max-width: 768px) 128px, 144px"
+            />
+          </div>
+
+          {/* Content Panel */}
+          <div className="flex flex-col items-center flex-grow w-full">
+            <h3 className="text-xl md:text-2xl font-semibold text-white tracking-tight leading-tight">
               {member.name}
             </h3>
-            <p className="mt-2 text-base font-medium text-[#60a5fa]">
+            <p className="mt-1 text-xs font-medium text-[#60a5fa] mb-4">
               {member.designation}
             </p>
+
+            <p className="text-[9.5px] font-bold uppercase tracking-widest text-white/25 mb-3">
+              {member.experience} experience
+            </p>
+
+            <p className="text-white/50 leading-relaxed text-sm  max-w-sm">
+              {member.bio}
+            </p>
           </div>
-        )}
-
-        {member.tagline && (
-          <p
-            className={`font-medium text-white/70 ${
-              isLandscape ? "text-base mb-4" : "text-sm mb-3"
-            }`}
-          >
-            {member.tagline}
-          </p>
-        )}
-
-        <p
-          className={`text-white/50 leading-relaxed ${
-            isLandscape ? "text-sm md:text-base" : "text-sm"
-          }`}
-        >
-          {member.bio}
-        </p>
-      </div>
+        </>
+      )}
     </motion.article>
   );
 });

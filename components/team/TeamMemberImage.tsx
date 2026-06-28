@@ -36,7 +36,7 @@ const TeamMemberImage = memo(function TeamMemberImage({
   if (hasError) {
     return (
       <div
-        className={`flex items-center justify-center bg-gradient-to-br from-[#2563eb]/30 to-[#1d4ed8]/20 ${className}`}
+        className={`flex items-center justify-center bg-gradient-to-br from-[#2563eb]/30 to-[#1d4ed8]/20 w-full h-full ${className}`}
         role="img"
         aria-label={alt}
       >
@@ -55,7 +55,8 @@ const TeamMemberImage = memo(function TeamMemberImage({
       sizes={sizes}
       priority={priority}
       onError={handleError}
-      className={`object-cover object-top ${className}`}
+      /* Added !transform-none and !scale-100 to explicitly block parent overrides */
+      className={`object-cover object-top !transform-none !scale-100 transition-none ${className}`}
     />
   );
 });

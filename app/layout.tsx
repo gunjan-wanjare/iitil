@@ -13,7 +13,7 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: {
     default: "IITIL — Data Intelligence, Enterprise AI & Cloud Engineering",
-    template: "%s | IITIL",
+    template: "%s ",
   },
   description:
     "IITIL delivers data intelligence, enterprise AI, machine learning, cloud DevOps, analytics, and enterprise engineering for measurable business outcomes.",
