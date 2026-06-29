@@ -68,7 +68,10 @@ export default function Footer() {
         >
           {/* Col 1 — Brand + Subscribe */}
           <motion.div variants={colVariants} className="lg:col-span-1">
-            <IITILLogo size={48} className="mb-5" />
+            <IITILLogo size={48} className="mb-2" />
+            <p className="text-sm text-white/45 leading-relaxed mb-8">
+              A <span className="font-semibold text-white">YAKA </span>Brand
+            </p>
             <p className="text-sm text-white/45 leading-relaxed mb-8">
               Transforming data into intelligent business outcomes through advanced
               analytics and technology solutions.
