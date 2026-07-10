@@ -47,10 +47,10 @@ const LeadershipCard = memo(function LeadershipCard({
               sizes="(max-width: 768px) 100vw, 45vw"
             />
             {/* Gradient overlay wrapping smoothly into the dark theme */}
-            <div
+            {/* <div
               aria-hidden
               className="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-transparent via-[#020817]/20 to-[#020817]"
-            />
+            /> */}
           </div>
 
           {/* Content Panel */}
