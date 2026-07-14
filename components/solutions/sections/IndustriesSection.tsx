@@ -40,6 +40,7 @@ export default function IndustriesSection() {
             <PillLabel>Who We Do This For</PillLabel>
           </div>
           <BlurText
+            as="h2"
             text="Intelligence for industries that can't afford to guess."
             animateBy="words"
             direction="bottom"

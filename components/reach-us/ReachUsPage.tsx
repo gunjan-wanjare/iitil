@@ -118,6 +118,7 @@ function HeroSection() {
         </motion.div>
 
         <BlurText
+          as="h1"
           text="Tell us what's tangled. Let's fix it together."
           animateBy="words"
           direction="bottom"

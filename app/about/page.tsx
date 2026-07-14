@@ -1,35 +1,53 @@
 import type { Metadata } from "next";
 import AboutPage from "@/components/about/AboutPage";
+import { createMetadata } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
+import {
+  graph,
+  webPageSchema,
+  breadcrumbSchema,
+} from "@/lib/structured-data";
 
-export const metadata: Metadata = {
-  title: "About Us | IITIL",
-  description:
-    "IITIL brings analytics, engineering, and systems together so your scattered data becomes a clear basis for decisions — not another dashboard nobody trusts.",
+const TITLE =
+  "About IITIL | Data Intelligence & Technology Solutions Company | IITIL.com";
+const DESCRIPTION =
+  "Learn how IITIL helps organizations transform data into business value through analytics, AI, cloud technologies and enterprise technology solutions.";
+
+export const metadata: Metadata = createMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  path: "/about",
+  ogImage: "/about_img.jpg",
   keywords: [
-    "Data Intelligence",
-    "Enterprise AI",
-    "Analytics",
-    "Enterprise Engineering",
-    "IITIL",
+    "About IITIL",
+    "Data Intelligence Company",
+    "Technology Consulting",
+    "Enterprise Software",
+    "Digital Transformation",
+    "Data Analytics",
+    "Artificial Intelligence",
+    "Cloud Computing",
   ],
-  openGraph: {
-    title: "About Us | IITIL",
-    description:
-      "Your data's all dots. We draw the line. Learn how IITIL turns scattered data into decisions you can trust.",
-    type: "website",
-    siteName: "IITIL",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About Us | IITIL",
-    description:
-      "Your data's all dots. We draw the line. Learn how IITIL turns scattered data into decisions you can trust.",
-  },
-  alternates: {
-    canonical: "/about",
-  },
-};
+});
+
+const jsonLd = graph(
+  webPageSchema({
+    path: "/about",
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "AboutPage",
+  }),
+  breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+  ])
+);
 
 export default function About() {
-  return <AboutPage />;
+  return (
+    <>
+      <JsonLd data={jsonLd} />
+      <AboutPage />
+    </>
+  );
 }

@@ -323,6 +323,7 @@ function HeroSection() {
         </motion.div>
 
         <BlurText
+          as="h1"
           text="Delivering Scalable IT Solutions Across India & Global Markets"
           animateBy="words"
           direction="bottom"
@@ -378,6 +379,7 @@ const OrgStructureSection = memo(function OrgStructureSection() {
             <PillLabel>Organization Structure</PillLabel>
           </div>
           <BlurText
+            as="h2"
             text="Leadership & Teams"
             animateBy="words"
             direction="bottom"
@@ -697,6 +699,7 @@ const GlobalDeliverySection = memo(function GlobalDeliverySection() {
             <PillLabel>Global Delivery</PillLabel>
           </div>
           <BlurText
+            as="h2"
             text="Built for Scale, Designed for Growth"
             animateBy="words"
             direction="bottom"
@@ -778,6 +781,7 @@ const CTASection = memo(function CTASection() {
                 <PillLabel>Get In Touch</PillLabel>
               </div>
               <BlurText
+                as="h2"
                 text="Ready to Transform Your Business?"
                 animateBy="words"
                 direction="bottom"

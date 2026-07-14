@@ -64,6 +64,7 @@ export default function IITILComparison() {
             <PillLabel>Why Us</PillLabel>
           </div>
           <BlurText
+            as="h2"
             text="Same brief. Very different partner."
             animateBy="words"
             direction="bottom"
@@ -78,7 +79,7 @@ export default function IITILComparison() {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="mt-4 text-white/50 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed"
           >
-            Most providers can list the same services. Here's what actually separates a partner from a vendor:
+            Most providers can list the same services. Here&apos;s what actually separates a partner from a vendor:
           </motion.p>
         </div>
 

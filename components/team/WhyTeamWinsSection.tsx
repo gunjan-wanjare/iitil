@@ -48,6 +48,7 @@ const WhyTeamWinsSection = memo(function WhyTeamWinsSection() {
             <PillLabel>Why Our Team Wins</PillLabel>
           </div>
           <BlurText
+            as="h2"
             text="What Sets Our People Apart"
             animateBy="words"
             direction="bottom"

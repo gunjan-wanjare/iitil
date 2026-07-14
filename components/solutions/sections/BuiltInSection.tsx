@@ -43,6 +43,7 @@ export default function BuiltInSection() {
             <PillLabel>Built In, Not Bolted On</PillLabel>
           </div>
           <BlurText
+            as="h2"
             text="Built in, not bolted on."
             animateBy="words"
             direction="bottom"

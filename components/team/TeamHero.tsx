@@ -89,6 +89,7 @@ export default function TeamHero() {
         </motion.div>
 
         <BlurText
+          as="h1"
           text="Meet the People Behind Our Success"
           animateBy="words"
           direction="bottom"

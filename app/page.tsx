@@ -10,43 +10,51 @@ import Testimonials from "@/components/sections/Testimonials";
 import CTABanner from "@/components/sections/CTABanner";
 import Footer from "@/components/sections/Footer";
 import type { Metadata } from "next";
+import { createMetadata } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
+import { graph, webPageSchema, serviceSchema } from "@/lib/structured-data";
 
-export const metadata: Metadata = {
-  title: "IITIL — Data Intelligence, Enterprise AI & Cloud Engineering",
+export const metadata: Metadata = createMetadata({
+  title:
+    "Enterprise Data, AI ML, Cloud & Digital Transformation Services | IITIL.com",
   description:
-    "IITIL brings data intelligence, enterprise AI, machine learning, cloud DevOps, analytics, and enterprise engineering together — turning fragmented data into measurable outcomes.",
+    "Drive innovation and growth with data analytics, AI & ML, cloud & DevOps services and enterprise technology solutions tailored to your business.",
+  path: "/",
   keywords: [
-    "Data Intelligence",
-    "Enterprise AI",
+    "Enterprise Software",
+    "Data Analytics",
+    "Artificial Intelligence",
     "Machine Learning",
-    "Cloud DevOps",
-    "Analytics",
-    "Enterprise Engineering",
-    "IITIL",
-    "data platforms",
-    "business intelligence",
+    "Cloud Computing",
+    "DevOps",
+    "Digital Transformation",
+    "Data Intelligence",
+    "Business Intelligence",
+    "Enterprise Applications",
   ],
-  openGraph: {
-    title: "IITIL — Data Intelligence, Enterprise AI & Cloud Engineering",
+});
+
+const jsonLd = graph(
+  webPageSchema({
+    path: "/",
+    title:
+      "Enterprise Data, AI ML, Cloud & Digital Transformation Services | IITIL.com",
     description:
-      "End-to-end data intelligence and technology services. Connect your data, AI, cloud, and engineering into one intelligent ecosystem.",
-    type: "website",
-    siteName: "IITIL",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "IITIL — Data Intelligence, Enterprise AI & Cloud Engineering",
+      "Drive innovation and growth with data analytics, AI & ML, cloud & DevOps services and enterprise technology solutions tailored to your business.",
+  }),
+  serviceSchema({
+    name: "Enterprise Data & Digital Transformation Services",
     description:
-      "Turn fragmented data into intelligent outcomes with IITIL's full-stack data, AI, cloud, and engineering services.",
-  },
-  alternates: {
-    canonical: "/",
-  },
-};
+      "Data analytics, AI & ML, cloud, DevOps and enterprise engineering services that turn fragmented data into measurable business outcomes.",
+    path: "/solutions",
+    serviceType: "Digital Transformation Consulting",
+  })
+);
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#020817]">
+      <JsonLd data={jsonLd} />
       <Navbar />
       <Hero />
       <ServicesStack />

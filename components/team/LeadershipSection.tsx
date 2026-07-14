@@ -24,6 +24,7 @@ const TeamGrid = memo(function TeamGrid() {
             <PillLabel>Our Team</PillLabel>
           </div>
           <BlurText
+            as="h2"
             text="Experts Across Every Function"
             animateBy="words"
             direction="bottom"

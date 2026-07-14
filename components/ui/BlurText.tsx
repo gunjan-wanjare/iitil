@@ -16,6 +16,8 @@ type BlurTextProps = {
   easing?: Easing | Easing[];
   onAnimationComplete?: () => void;
   stepDuration?: number;
+  /** Semantic element to render (e.g. "h1", "h2"). Defaults to a paragraph. */
+  as?: "p" | "h1" | "h2" | "h3" | "h4" | "span" | "div";
 };
 
 const buildKeyframes = (
@@ -46,10 +48,12 @@ const BlurText: React.FC<BlurTextProps> = ({
   easing = [0.25, 0.46, 0.45, 0.94],
   onAnimationComplete,
   stepDuration = 0.4,
+  as = "p",
 }) => {
   const elements = animateBy === "words" ? text.split(" ") : text.split("");
   const [inView, setInView] = useState(false);
-  const ref = useRef<HTMLParagraphElement>(null);
+  const ref = useRef<HTMLElement>(null);
+  const Tag = as;
 
   useEffect(() => {
     if (!ref.current) return;
@@ -95,7 +99,11 @@ const BlurText: React.FC<BlurTextProps> = ({
   );
 
   return (
-    <p ref={ref} className={`blur-text ${className} flex flex-wrap`}>
+    <Tag
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ref={ref as any}
+      className={`blur-text ${className} flex flex-wrap`}
+    >
       {elements.map((segment, index) => {
         const animateKeyframes = buildKeyframes(fromSnapshot, toSnapshots);
         const spanTransition: Transition = {
@@ -123,7 +131,7 @@ const BlurText: React.FC<BlurTextProps> = ({
           </motion.span>
         );
       })}
-    </p>
+    </Tag>
   );
 };
 

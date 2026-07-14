@@ -18,6 +18,7 @@ export default function CaseStudies() {
             <PillLabel>Proof Beats Promises</PillLabel>
           </div>
           <BlurText
+            as="h2"
             text="Real programmes. Real numbers."
             animateBy="words"
             direction="bottom"

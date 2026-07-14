@@ -74,6 +74,7 @@ export default function SolutionsHero() {
         </motion.div>
 
         <BlurText
+          as="h1"
           text="Full-stack intelligence, engineered end to end."
           animateBy="words"
           direction="bottom"

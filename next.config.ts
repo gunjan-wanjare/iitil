@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "export",
-  trailingSlash: true, // This ensures clean folder-based routing
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },

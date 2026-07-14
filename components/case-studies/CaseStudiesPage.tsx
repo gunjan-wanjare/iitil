@@ -109,6 +109,7 @@ function HeroSection() {
         </motion.div>
 
         <BlurText
+          as="h1"
           text="Proven Results Across Industries"
           animateBy="words"
           direction="bottom"
@@ -144,6 +145,7 @@ const ImpactSummarySection = memo(function ImpactSummarySection() {
               <PillLabel>Business Impact Delivered</PillLabel>
             </div>
             <BlurText
+              as="h2"
               text="Driving Measurable Outcomes Across Industries"
               animateBy="words"
               direction="bottom"
@@ -230,6 +232,7 @@ const CTASection = memo(function CTASection() {
 
           <div className="relative z-10 flex flex-col items-center">
             <BlurText
+              as="h2"
               text="Ready to Create Your Success Story?"
               animateBy="words"
               direction="bottom"

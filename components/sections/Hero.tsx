@@ -102,6 +102,7 @@ export default function Hero() {
         </motion.div>
 
         <BlurText
+          as="h1"
           text="Multiply Your Growth with Your Own Data"
           animateBy="words"
           direction="bottom"

@@ -117,6 +117,7 @@ export default function FAQ() {
             <PillLabel>Lead with Transparency</PillLabel>
           </div>
           <BlurText
+            as="h2"
             text="We're picky about the right things."
             animateBy="words"
             direction="bottom"

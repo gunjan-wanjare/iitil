@@ -134,6 +134,7 @@ function HeroSection() {
         </motion.div>
 
         <BlurText
+          as="h1"
           text="Connecting the dots. Engineering the truth."
           animateBy="words"
           direction="bottom"
@@ -309,6 +310,7 @@ function VMLSection() {
             <PillLabel>Here&apos;s what drives us.</PillLabel>
           </div>
           <BlurText
+            as="h2"
             text="Vision, Mission & Leadership"
             animateBy="words"
             direction="bottom"
@@ -551,6 +553,7 @@ function CTASection() {
             </div>
 
             <BlurText
+              as="h2"
               text="Let's turn your mess into momentum"
               animateBy="words"
               direction="bottom"

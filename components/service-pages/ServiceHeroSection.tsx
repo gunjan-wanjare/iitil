@@ -98,6 +98,7 @@ export default function ServiceHeroSection({
         </motion.div>
 
         <BlurText
+          as="h1"
           text={title}
           animateBy="words"
           direction="bottom"

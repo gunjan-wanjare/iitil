@@ -35,8 +35,9 @@ export function usePinnedHorizontalScroll(
 
   useLayoutEffect(() => {
     if (!enabled) {
-      setIsReady(true);
-      return;
+      // Defer so we don't sync-set state inside the effect body (react-hooks/set-state-in-effect).
+      const id = requestAnimationFrame(() => setIsReady(true));
+      return () => cancelAnimationFrame(id);
     }
 
     const measure = () => {

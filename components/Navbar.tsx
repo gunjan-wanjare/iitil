@@ -61,7 +61,7 @@ export default function Navbar() {
           style={scrolled ? { background: "rgba(10,20,40,0.75)", backdropFilter: "blur(24px)", border: "1px solid rgba(255,255,255,0.1)" } : { background: "rgba(2,8,23,0.8)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
         >
           <div className="flex items-center justify-between h-20">
-            <Link href="/" className="cursor-pointer">
+            <Link href="/" className="cursor-pointer" aria-label="IITIL home">
               <IITILLogo size={isMobile ? 48 : 64} />
             </Link>
 
@@ -93,8 +93,14 @@ export default function Navbar() {
                 )}
               </AnimatePresence>
 
-              <button onClick={() => setIsOpen(!isOpen)} className="md:hidden">
-                <div className={`space-y-1.5 ${isOpen ? "open" : ""}`}>
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="md:hidden"
+                aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+                aria-expanded={isOpen}
+                aria-controls="mobile-menu"
+              >
+                <div className={`space-y-1.5 ${isOpen ? "open" : ""}`} aria-hidden="true">
                   <span className={`block h-0.5 w-6 bg-white transition-transform ${isOpen ? "rotate-45 translate-y-2" : ""}`} />
                   <span className={`block h-0.5 w-6 bg-white ${isOpen ? "opacity-0" : ""}`} />
                   <span className={`block h-0.5 w-6 bg-white transition-transform ${isOpen ? "-rotate-45 -translate-y-2" : ""}`} />
@@ -108,8 +114,8 @@ export default function Navbar() {
       {/* Fixed Mobile Navigation Menu using Link */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40 bg-[#020817]/95 flex flex-col justify-center items-center md:hidden">
-            <div className="flex flex-col gap-6 text-center">
+          <motion.div id="mobile-menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40 bg-[#020817]/95 flex flex-col justify-center items-center md:hidden">
+            <nav aria-label="Mobile" className="flex flex-col gap-6 text-center">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.label}
@@ -120,7 +126,7 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
-            </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>

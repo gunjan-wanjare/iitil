@@ -56,6 +56,7 @@ const PageCTA = memo(function PageCTA({
               <PillLabel>{pillLabel}</PillLabel>
             </div>
             <BlurText
+              as="h2"
               text={headline}
               animateBy="words"
               direction="bottom"

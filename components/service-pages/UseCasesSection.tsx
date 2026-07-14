@@ -30,6 +30,7 @@ const UseCasesSection = memo(function UseCasesSection({
             <PillLabel>Applications</PillLabel>
           </div>
           <BlurText
+            as="h2"
             text="Use Cases"
             animateBy="words"
             direction="bottom"

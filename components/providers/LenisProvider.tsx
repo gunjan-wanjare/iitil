@@ -47,7 +47,8 @@ export default function LenisProvider({
       (window as unknown as Record<string, unknown>).__lenis = instance;
     }
 
-    setLenis(instance);
+    // Defer context publish so we don't sync-set state inside the effect body.
+    const readyId = requestAnimationFrame(() => setLenis(instance));
 
     function raf(time: number) {
       instance.raf(time);
@@ -57,6 +58,7 @@ export default function LenisProvider({
     rafRef.current = requestAnimationFrame(raf);
 
     return () => {
+      cancelAnimationFrame(readyId);
       if (rafRef.current !== null) {
         cancelAnimationFrame(rafRef.current);
       }

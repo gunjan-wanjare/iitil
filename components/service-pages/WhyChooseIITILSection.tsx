@@ -24,6 +24,7 @@ const WhyChooseIITILSection = memo(function WhyChooseIITILSection({
             <PillLabel>Partnership</PillLabel>
           </div>
           <BlurText
+            as="h2"
             text={heading}
             animateBy="words"
             direction="bottom"

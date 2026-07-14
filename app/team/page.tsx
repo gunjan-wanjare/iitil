@@ -1,35 +1,43 @@
 import type { Metadata } from "next";
 import TeamPage from "@/components/team/TeamPage";
+import { createMetadata } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
+import {
+  graph,
+  webPageSchema,
+  breadcrumbSchema,
+} from "@/lib/structured-data";
 
-export const metadata: Metadata = {
-  title: "Our Team | IITIL",
-  description:
-    "Meet the IITIL team — leaders and experts in data intelligence, engineering, cloud, and enterprise operations who turn complex challenges into measurable outcomes.",
+const TITLE = "Our Team | Data Intelligence & Technology Experts | IITIL.com";
+const DESCRIPTION =
+  "Meet the IITIL team — leaders and experts in data intelligence, engineering, cloud and enterprise operations who turn complex challenges into measurable outcomes.";
+
+export const metadata: Metadata = createMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  path: "/team",
   keywords: [
     "IITIL Team",
-    "Data Intelligence Experts",
     "Technology Leadership",
+    "Data Intelligence Experts",
     "Enterprise Engineering",
-    "IITIL Leadership",
+    "Technology Consulting",
   ],
-  openGraph: {
-    title: "Our Team | IITIL",
-    description:
-      "Meet the people behind IITIL — the leaders and experts driving data intelligence and technology forward.",
-    type: "website",
-    siteName: "IITIL",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Our Team | IITIL",
-    description:
-      "Meet the people behind IITIL — the leaders and experts driving data intelligence and technology forward.",
-  },
-  alternates: {
-    canonical: "/team",
-  },
-};
+});
+
+const jsonLd = graph(
+  webPageSchema({ path: "/team", title: TITLE, description: DESCRIPTION }),
+  breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Our Team", path: "/team" },
+  ])
+);
 
 export default function Team() {
-  return <TeamPage />;
+  return (
+    <>
+      <JsonLd data={jsonLd} />
+      <TeamPage />
+    </>
+  );
 }

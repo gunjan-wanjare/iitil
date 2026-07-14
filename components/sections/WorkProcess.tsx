@@ -97,6 +97,7 @@ export default function WorkProcess() {
             <PillLabel>How It Works</PillLabel>
           </div>
           <BlurText
+            as="h2"
             text="One connected layer. No more silos."
             animateBy="words"
             direction="bottom"

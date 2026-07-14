@@ -31,6 +31,7 @@ const BenefitsGridSection = memo(function BenefitsGridSection({
             <PillLabel>Benefits</PillLabel>
           </div>
           <BlurText
+            as="h2"
             text={title}
             animateBy="words"
             direction="bottom"

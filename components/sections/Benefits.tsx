@@ -85,6 +85,7 @@ export default function Benefits() {
             <PillLabel>Industry Presence</PillLabel>
           </div>
           <BlurText
+            as="h2"
             text="Intelligence for industries that can't afford to guess."
             animateBy="words"
             direction="bottom"

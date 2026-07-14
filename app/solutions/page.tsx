@@ -1,36 +1,79 @@
 import type { Metadata } from "next";
 import SolutionsPage from "@/components/solutions/SolutionsPage";
+import { createMetadata } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
+import {
+  graph,
+  webPageSchema,
+  breadcrumbSchema,
+  serviceSchema,
+} from "@/lib/structured-data";
 
-export const metadata: Metadata = {
-  title: "Solutions | IITIL",
-  description:
-    "Enterprise data, AI, cloud and engineering services that help organisations transform operations with measurable business outcomes.",
+const TITLE =
+  "Data Intelligence & Analytics, AI ML, DevOps, Cloud Solutions | IITIL.com";
+const DESCRIPTION =
+  "Empower your business with data intelligence, machine learning, cloud services, custom software development and secure enterprise technology solutions.";
+
+export const metadata: Metadata = createMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  path: "/solutions",
+  ogImage: "/data_intelligence.jpg",
   keywords: [
     "Data Intelligence",
-    "Enterprise AI",
+    "Data Analytics",
     "Machine Learning",
-    "Cloud DevOps",
-    "Analytics",
-    "Enterprise Engineering",
+    "Artificial Intelligence",
+    "DevOps",
+    "Cloud Computing",
+    "Custom Software Development",
+    "Enterprise Software",
+    "Business Intelligence",
+    "Data Engineering",
   ],
-  openGraph: {
-    title: "Solutions | IITIL",
+});
+
+const SERVICES = [
+  {
+    name: "Data Intelligence & Analytics",
     description:
-      "Enterprise data, AI, cloud and engineering services that help organisations transform operations with measurable business outcomes.",
-    type: "website",
-    siteName: "IITIL",
+      "Data engineering, warehousing, analytics and visualization that turn raw data into decisions.",
+    path: "/data-services",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Solutions | IITIL",
+  {
+    name: "AI & Machine Learning",
     description:
-      "Enterprise data, AI, cloud and engineering services that help organisations transform operations with measurable business outcomes.",
+      "Predictive analytics, NLP, computer vision and custom model deployment for enterprise use cases.",
+    path: "/ai-ml",
   },
-  alternates: {
-    canonical: "/solutions",
+  {
+    name: "Cloud & DevOps",
+    description:
+      "Cloud migration, hybrid multi-cloud, DevOps automation and infrastructure management.",
+    path: "/cloud-infrastructure",
   },
-};
+  {
+    name: "Cybersecurity",
+    description:
+      "Security assessments, threat monitoring, IAM and compliance governance for enterprises.",
+    path: "/cybersecurity",
+  },
+];
+
+const jsonLd = graph(
+  webPageSchema({ path: "/solutions", title: TITLE, description: DESCRIPTION }),
+  breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Solutions", path: "/solutions" },
+  ]),
+  ...SERVICES.map((s) => serviceSchema(s))
+);
 
 export default function Solutions() {
-  return <SolutionsPage />;
+  return (
+    <>
+      <JsonLd data={jsonLd} />
+      <SolutionsPage />
+    </>
+  );
 }

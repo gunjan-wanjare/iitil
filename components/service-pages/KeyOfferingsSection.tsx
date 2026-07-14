@@ -98,6 +98,7 @@ const KeyOfferingsSection = memo(function KeyOfferingsSection({
             <PillLabel>Services</PillLabel>
           </div>
           <BlurText
+            as="h2"
             text="Key Offerings"
             animateBy="words"
             direction="bottom"

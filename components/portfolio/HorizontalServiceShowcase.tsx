@@ -34,7 +34,7 @@ const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 /* ────────────────────────────────────────────────────────────────
     Row Visual Hero (Takes full height of its left-side column)
 ──────────────────────────────────────────────────────────────── */
-function RowSideVisual({ img }: { img: any }) {
+function RowSideVisual({ img }: { img: string | null | undefined }) {
   const isValidImage = img && typeof img === "string" && img.trim() !== "";
 
   if (!isValidImage) {

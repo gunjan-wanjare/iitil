@@ -195,6 +195,7 @@ export default function ServicesStack() {
           <PillLabel>What We Actually Do</PillLabel>
         </div>
         <BlurText
+          as="h2"
           text="Better data. Smarter systems. Real outcomes."
           animateBy="words"
           direction="bottom"
