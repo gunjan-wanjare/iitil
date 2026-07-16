@@ -78,7 +78,7 @@ export default function CaseStudies() {
                 40% Operational efficiency improvement · 32% Revenue growth
               </p>
               <AnimatedButton variant="ghost" href="/case-studies" className="text-sm px-5 py-2.5">
-                Read the story
+                Read Case Studies
               </AnimatedButton>
             </div>
           </GlowCard>
@@ -130,7 +130,7 @@ export default function CaseStudies() {
                 $2.4M Annual savings · 98.5% Forecast accuracy
               </p>
               <AnimatedButton variant="ghost" href="/case-studies" className="text-sm px-5 py-2.5">
-                Read the story
+                Read Case Studies
               </AnimatedButton>
             </div>
           </GlowCard>
@@ -179,7 +179,7 @@ export default function CaseStudies() {
                   ))}
                 </div>
                 <AnimatedButton variant="ghost" href="/case-studies" className="text-sm px-5 py-2.5">
-                  Read the story
+                  Read Case Studies
                 </AnimatedButton>
               </div>
               

@@ -819,10 +819,10 @@ const CTASection = memo(function CTASection() {
                 className="mt-8 flex flex-col sm:flex-row gap-4"
               >
                 <AnimatedButton variant="primary" href="/reach-us">
-                  Get In Touch
+                  Start a Project
                 </AnimatedButton>
-                <AnimatedButton variant="ghost" href="/reach-us">
-                  Talk to a Specialist
+                <AnimatedButton variant="ghost" href="/case-studies">
+                  Read Case Studies
                 </AnimatedButton>
               </motion.div>
             </div>

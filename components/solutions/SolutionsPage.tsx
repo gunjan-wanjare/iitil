@@ -25,8 +25,10 @@ export default function SolutionsPage() {
       <PageCTA
         headline="Enough reading. Let's build."
         description="Tell us what you're trying to solve. We'll respond within one business day — usually with a few sharp questions and a suggested next step."
-        primaryLabel="Schedule a consultation →"
-        secondaryLabel="Talk to a specialist"
+        primaryLabel="Book a Consultation"
+        secondaryLabel="View Portfolio"
+        primaryHref="/reach-us"
+        secondaryHref="/portfolio"
       />
       <Footer />
     </main>

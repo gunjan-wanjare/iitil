@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import LenisProvider from "@/components/providers/LenisProvider";
+import { IntroProvider } from "@/components/intro";
 import JsonLd from "@/components/seo/JsonLd";
 import { SITE } from "@/lib/seo";
 import { graph, organizationSchema, webSiteSchema } from "@/lib/structured-data";
@@ -119,7 +120,9 @@ export default function RootLayout({
 
       <body className="font-[family-name:var(--font-roboto)] antialiased">
         <JsonLd data={graph(organizationSchema(), webSiteSchema())} />
-        <LenisProvider>{children}</LenisProvider>
+        <LenisProvider>
+          <IntroProvider>{children}</IntroProvider>
+        </LenisProvider>
       </body>
     </html>
   );

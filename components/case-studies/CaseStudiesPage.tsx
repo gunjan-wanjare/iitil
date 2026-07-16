@@ -256,8 +256,8 @@ const CTASection = memo(function CTASection() {
               <AnimatedButton variant="primary" href="/reach-us">
                 Get In Touch
               </AnimatedButton>
-              <AnimatedButton variant="ghost" href="/reach-us">
-                Talk to a Specialist
+              <AnimatedButton variant="ghost" href="/solutions">
+                Explore Solutions
               </AnimatedButton>
             </motion.div>
           </div>

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import IITILLogo from "@/components/ui/IITILLogo";
@@ -14,7 +13,10 @@ const SERVICES_LINKS = [
 ];
 
 const COMPANY_LINKS = [
+  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
+  { label: "Solutions", href: "/solutions" },
+  { label: "Portfolio", href: "/portfolio" },
   { label: "Our Team", href: "/team" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "Legal", href: "/legal" },
@@ -22,7 +24,6 @@ const COMPANY_LINKS = [
 ];
 
 const SOCIAL_LINKS = [
-  
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/company/iitil-cipl/",
@@ -32,12 +33,9 @@ const SOCIAL_LINKS = [
       </svg>
     ),
   },
-  
 ];
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-
   const containerVariants = {
     hidden: {},
     visible: {
@@ -67,36 +65,18 @@ export default function Footer() {
           viewport={{ once: true, margin: "-60px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14 lg:gap-16"
         >
-          {/* Col 1 — Brand + Subscribe */}
+          {/* Col 1 — Brand */}
           <motion.div variants={colVariants} className="lg:col-span-1">
-            <IITILLogo size={48} className="mb-2" />
+            <Link href="/" aria-label="IITIL home" className="inline-block mb-2">
+              <IITILLogo size={48} />
+            </Link>
             <p className="text-sm text-white/45 leading-relaxed mb-8">
               A <span className="font-semibold text-white">YAKA </span>Brand
             </p>
-            <p className="text-sm text-white/45 leading-relaxed mb-8">
+            <p className="text-sm text-white/45 leading-relaxed">
               Transforming data into intelligent business outcomes through advanced
               analytics and technology solutions.
             </p>
-
-            {/* Subscribe */}
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Email address"
-                aria-label="Email address for newsletter subscription"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 min-w-0 bg-white/5 border border-white/10 rounded-full px-4 py-2.5 text-sm text-white placeholder-white/30 outline-none focus:border-[#2563eb]/40 transition-colors"
-              />
-              <button
-                type="button"
-                aria-label="Subscribe to newsletter"
-                className="flex-shrink-0 bg-gradient-to-b from-[#2563eb] to-[#1d4ed8] text-white text-sm font-semibold rounded-full px-5 py-2.5 hover:opacity-90 transition-opacity"
-                style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15)" }}
-              >
-                Subscribe
-              </button>
-            </div>
           </motion.div>
 
           {/* Col 2 — Services */}
@@ -143,14 +123,19 @@ export default function Footer() {
               Contact
             </h4>
             <div className="flex flex-col gap-2 mb-6">
-              <a href="mailto:hello@iitil.com" className="text-sm text-white/45 hover:text-white transition-colors">
-                hello@iitil.com
+              <a href="mailto:business@iitil.com" className="text-sm text-white/45 hover:text-white transition-colors">
+                business@iitil.com
               </a>
-              <p className="text-sm text-white/45 leading-relaxed">
+              <a
+                href="https://maps.google.com/?q=Sattva+Knowledge+City+Hi-Tec+City+Hyderabad+500081"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-white/45 hover:text-white transition-colors leading-relaxed"
+              >
                 Sattva Knowledge City, Hi-Tec City,<br />
                 Hyderabad – 500081<br />
                 Telangana, India
-              </p>
+              </a>
             </div>
             <div className="flex gap-3">
               {SOCIAL_LINKS.map((social) => (
@@ -183,11 +168,10 @@ export default function Footer() {
             <p className="text-sm text-white/30">
               © 2026 Crediple India Private Limited (CIPL). All rights reserved.
             </p>
-           
           </div>
           <div className="flex items-center gap-6">
             <p className="text-sm text-white/30">
-             Empowering Professionals Through Convergent Technology.
+              Empowering Professionals Through Convergent Technology.
             </p>
           </div>
         </motion.div>

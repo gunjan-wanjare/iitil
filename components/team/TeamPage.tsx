@@ -35,10 +35,10 @@ export default function TeamPage() {
         pillLabel="Join Our Team"
         headline="Ready to Build Something That Matters?"
         description="We're always looking for talented people who care about outcomes, not optics. Explore opportunities to grow with a team that delivers."
-        primaryLabel="View Open Roles"
-        secondaryLabel="Get In Touch"
+        primaryLabel="Contact Our Team"
+        secondaryLabel="Explore Solutions"
         primaryHref="/reach-us"
-        secondaryHref="/reach-us"
+        secondaryHref="/solutions"
       />
       <Footer />
     </main>

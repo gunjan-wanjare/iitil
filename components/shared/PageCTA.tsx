@@ -22,9 +22,9 @@ const PageCTA = memo(function PageCTA({
   headline,
   description,
   primaryLabel = "Get In Touch",
-  secondaryLabel = "Talk to a Specialist",
+  secondaryLabel = "Explore Solutions",
   primaryHref = "/reach-us",
-  secondaryHref = "/reach-us",
+  secondaryHref = "/solutions",
 }: PageCTAProps) {
   return (
     <section className="py-28 px-6">

@@ -101,10 +101,10 @@ export default function SolutionsHero() {
           className="mt-10 flex flex-col sm:flex-row gap-4 items-center"
         >
           <AnimatedButton variant="primary" href="/reach-us">
-            Talk to a specialist
+            Book a Consultation
           </AnimatedButton>
-          <AnimatedButton variant="ghost" href="/reach-us">
-            Not sure where to start
+          <AnimatedButton variant="ghost" href="/portfolio">
+            View Portfolio
           </AnimatedButton>
         </motion.div>
       </div>

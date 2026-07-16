@@ -153,7 +153,7 @@ const CONSULTATION_CARDS = [
     title: "Schedule a Consultation",
     description:
       "Book a meeting with our experts to discuss your specific requirements and explore potential solutions.",
-    cta: "Get In Touch",
+    cta: "Book a Call",
     action: () => scrollToSection("contact-form"),
   },
   {
@@ -162,7 +162,7 @@ const CONSULTATION_CARDS = [
     title: "Speak to an Expert",
     description:
       "Connect directly with our technical specialists to get answers to your technical questions.",
-    cta: "Get In Touch",
+    cta: "Ask an Expert",
     action: () => scrollToSection("contact-form"),
   },
 ] as const;
@@ -386,13 +386,30 @@ const LocationSection = memo(function LocationSection() {
                   <p className="text-xs font-semibold tracking-widest uppercase text-white/40 mb-2">
                     Address
                   </p>
-                  <p className="text-sm text-white/65 leading-relaxed">
+                  <a
+                    href="https://maps.google.com/?q=Sattva+Knowledge+City+Hi-Tec+City+Hyderabad+500081"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-white/65 hover:text-white transition-colors duration-200 leading-relaxed block"
+                  >
                     Sattva Knowledge City, Hi-Tec City,
                     <br />
                     Hyderabad - 500081 Telangana,
                     <br />
                     India
+                  </a>
+                </div>
+
+                <div>
+                  <p className="text-xs font-semibold tracking-widest uppercase text-white/40 mb-2">
+                    Email
                   </p>
+                  <a
+                    href="mailto:business@iitil.com"
+                    className="inline-flex items-center gap-2 text-sm text-white/65 hover:text-white transition-colors duration-200"
+                  >
+                    business@iitil.com
+                  </a>
                 </div>
 
                 <div>
@@ -423,7 +440,11 @@ const LocationSection = memo(function LocationSection() {
               </div>
 
               <div className="mt-8">
-                <AnimatedButton variant="ghost" showArrow={false}>
+                <AnimatedButton
+                  variant="ghost"
+                  showArrow={false}
+                  href="https://maps.google.com/?q=Sattva+Knowledge+City+Hi-Tec+City+Hyderabad+500081"
+                >
                   Get Directions
                 </AnimatedButton>
               </div>

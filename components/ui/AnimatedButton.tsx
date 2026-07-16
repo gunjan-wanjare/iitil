@@ -115,6 +115,7 @@ export default function AnimatedButton({
   }
 
   const MotionTag = href ? motion.a : motion.button;
+  const isExternal = Boolean(href && !isInternalHref(href));
 
   return (
     <MotionTag
@@ -124,7 +125,14 @@ export default function AnimatedButton({
       className={`${baseStyles} ${variantStyles} ${className}`}
       style={insetShadow}
       onClick={onClick}
-      {...(href ? { href } : { type: "button" as const })}
+      {...(href
+        ? {
+            href,
+            ...(isExternal
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {}),
+          }
+        : { type: "button" as const })}
     >
       {content}
     </MotionTag>
@@ -145,13 +153,21 @@ export function NavLink({
 }) {
   if (!href) return null;
 
+  const baseClass = `relative overflow-hidden inline-flex flex-col h-[1.35em] transition-colors font-medium ${
+    active ? "text-white cursor-default" : "text-white/70 hover:text-white cursor-pointer"
+  } ${className}`;
+
+  // Active page: render as non-navigating span to avoid same-page reload.
+  if (active) {
+    return (
+      <span className={baseClass} aria-current="page">
+        <span className="inline-block">{children}</span>
+      </span>
+    );
+  }
+
   return (
-    <Link
-      href={href}
-      className={`relative overflow-hidden inline-flex flex-col h-[1.35em] transition-colors font-medium cursor-pointer ${
-        active ? "text-white" : "text-white/70 hover:text-white"
-      } ${className}`}
-    >
+    <Link href={href} className={baseClass}>
       <motion.span
         whileHover="hover"
         initial="rest"
@@ -182,6 +198,7 @@ export function NavLink({
     </Link>
   );
 }
+
 
 
 

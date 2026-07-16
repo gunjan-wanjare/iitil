@@ -2,11 +2,11 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import Image from "next/image"; // Imported for optimized SVG handling
+import Image from "next/image";
 import BlurText from "@/components/ui/BlurText";
 import AnimatedButton from "@/components/ui/AnimatedButton";
-import PillLabel from "@/components/ui/PillLabel";
-import GlowCard from "@/components/ui/GlowCard";
+import { introConfig } from "@/components/intro/introConfig";
+import { useIntro } from "@/components/intro/useIntro";
 
 const MARQUEE_LOGOS = [
   "Data Intelligence",
@@ -22,26 +22,9 @@ const HERO_METRICS = [
   { value: "₹100Cr+", label: "Portfolio Managing" },
 ] as const;
 
-const PROBLEMS = [
-  {
-    title: "Silos & Manual Processes",
-    description:
-      "Manual handoffs slow everyone down. Collaboration stalls, visibility disappears, and the left hand stops knowing what the right is doing.",
-  },
-  {
-    title: "High Operational Costs",
-    description:
-      "Legacy systems are not only expensive to run but also slow to change. You're paying premium rates to move at dial-up speed.",
-  },
-  {
-    title: "Lack of Automation",
-    description:
-      "Manual work also means delays, errors, and missed opportunities. Your best people should not be stuck doing work a system should be handling.",
-  },
-] as const;
-
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { phase } = useIntro();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -50,6 +33,9 @@ export default function Hero() {
 
   const xRow1 = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
   const xRow2 = useTransform(scrollYProgress, [0, 1], ["-10%", "0%"]);
+
+  // Hero YAKA only while parked at top — never during dock or when navbar owns it.
+  const showHeroLogo = phase === "hero";
 
   return (
     <section
@@ -61,18 +47,30 @@ export default function Hero() {
           "radial-gradient(ellipse 80% 50% at 50% 40%, rgba(37,99,235,0.12) 0%, transparent 70%)",
       }}
     >
-      {/* Brand Logo - Completely hidden on mobile viewports */}
-      <div className="hidden md:flex md:absolute md:top-28 md:right-12 z-30 pointer-events-none">
-        <div className="pointer-events-auto">
-          <Image 
-            src="/yaka_brand_logo.png"
-            alt="Yaka Brand Logo" 
-            width={80} 
-            height={40}
-            priority
-            className="w-20 h-auto"
-          />
-        </div>
+      {/*
+        Hero logo + intro anchor — the REAL logo slot (top-right).
+        Always in the DOM with real width/height so getBoundingClientRect works
+        during flying; opacity hides it until landing.
+      */}
+      <div
+        id={introConfig.heroAnchorId}
+        className="hidden md:flex md:absolute md:top-28 md:right-12 z-30 items-center justify-center pointer-events-none"
+        style={{
+          width: introConfig.heroLogoSize,
+          height: introConfig.heroLogoSize,
+          opacity: showHeroLogo ? 1 : 0,
+          // Instant handoff — FloatingLogo owns the logo during transit.
+        }}
+        aria-hidden={!showHeroLogo}
+      >
+        <Image
+          src={introConfig.brandLogo}
+          alt="Yaka Brand Logo"
+          width={introConfig.heroLogoSize}
+          height={introConfig.heroLogoSize}
+          priority
+          className="w-full h-full object-contain"
+        />
       </div>
 
       <div
@@ -84,7 +82,6 @@ export default function Hero() {
         }}
       />
 
-      {/* Hero Content Wrapper */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 pt-24 md:pt-32 pb-16 max-w-6xl mx-auto w-full min-h-[calc(100vh-80px)] md:min-h-screen justify-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -131,19 +128,18 @@ export default function Hero() {
           <AnimatedButton variant="primary" href="/reach-us">
             Say less. Let&apos;s build.
           </AnimatedButton>
-          <AnimatedButton variant="ghost" href="/reach-us">
-            Talk to a data expert
+          <AnimatedButton variant="ghost" href="/solutions">
+            Explore Solutions
           </AnimatedButton>
         </motion.div>
 
-        {/* Hero metrics - Updated to stay single-row across all devices */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.3, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="mt-16 flex flex-row items-start justify-between gap-2 md:gap-6 w-full max-w-4xl"
         >
-          {HERO_METRICS.map((metric, i) => (
+          {HERO_METRICS.map((metric) => (
             <div key={metric.label} className="flex-1 px-1 text-center">
               <p className="text-[6.5vw] sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white tabular-nums leading-none">
                 {metric.value}
@@ -156,7 +152,6 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Marquee */}
       <div className="relative z-10 w-full pb-20 max-w-6xl mx-auto overflow-hidden">
         <div
           style={{

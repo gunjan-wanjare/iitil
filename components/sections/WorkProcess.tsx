@@ -131,7 +131,7 @@ export default function WorkProcess() {
             The result: one version of the truth, available to everyone, fast enough to act on.
           </p>
           <AnimatedButton variant="ghost" href="/solutions">
-            See how it works
+            Discover Our Approach
           </AnimatedButton>
         </motion.div>
       </div>

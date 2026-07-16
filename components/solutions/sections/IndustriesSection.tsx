@@ -95,7 +95,7 @@ export default function IndustriesSection() {
 
       <div className="flex justify-center mt-12">
         <AnimatedButton variant="ghost" href="/portfolio">
-          See industry work →
+          View Portfolio
         </AnimatedButton>
       </div>
     </section>
