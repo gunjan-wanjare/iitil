@@ -38,8 +38,26 @@ export default function FloatingLogo({
   const { lenis } = useLenis();
   const atNavbarRef = useRef(false);
   const atHeroRef = useRef(false);
+  /** Ensures completeDock / returnToHero fire at most once per FloatingLogo mount. */
+  const handedOffRef = useRef(false);
   const heroRectRef = useRef<Rect | null>(null);
   const navRectRef = useRef<Rect | null>(null);
+
+  const finishDock = () => {
+    if (handedOffRef.current || atNavbarRef.current) return;
+    handedOffRef.current = true;
+    atNavbarRef.current = true;
+    atHeroRef.current = false;
+    onDockComplete();
+  };
+
+  const finishReturn = () => {
+    if (handedOffRef.current || atHeroRef.current) return;
+    handedOffRef.current = true;
+    atHeroRef.current = true;
+    atNavbarRef.current = false;
+    onReturnToHero();
+  };
 
   const left = useMotionValue(startRect.left);
   const top = useMotionValue(startRect.top);
@@ -77,7 +95,8 @@ export default function FloatingLogo({
 
     if (!target) {
       console.warn("[intro] No valid hero/navbar rect — finishing");
-      onDockComplete();
+      // Defer handoff out of layout to avoid sync parent setState loops.
+      queueMicrotask(() => finishDock());
       return;
     }
 
@@ -96,10 +115,12 @@ export default function FloatingLogo({
     ];
 
     Promise.all(controls.map((c) => c.finished)).then(() => {
+      if (handedOffRef.current) return;
       if (landingOnHero) {
+        handedOffRef.current = true;
         onArriveHero();
       } else {
-        onDockComplete();
+        finishDock();
       }
     });
 
@@ -117,14 +138,18 @@ export default function FloatingLogo({
     console.log("[intro] Dock (Hero Rect)", hero);
     console.log("[intro] Dock (Navbar Rect)", nav);
 
+    // Do NOT call completeDock here — setState during layout remounts this
+    // component when the parent flips done⇄docking and loops forever.
     if (!nav || nav.width === 0 || nav.height === 0) {
-      console.warn("[intro] Navbar anchor missing or zero-sized — finishing");
-      onDockComplete();
+      console.warn("[intro] Navbar anchor missing or zero-sized — abort dock");
+      navRectRef.current = null;
       return;
     }
 
     heroRectRef.current = hero;
     navRectRef.current = nav;
+    // Fresh dock session — allow a single endpoint handoff from scroll.
+    handedOffRef.current = false;
     atNavbarRef.current = false;
     atHeroRef.current = false;
 
@@ -142,10 +167,24 @@ export default function FloatingLogo({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode]);
 
+  // One-shot: invalid dock target → finish once (never from useLayoutEffect).
+  useEffect(() => {
+    if (mode !== "dockToNavbar") return;
+    const nav = measureById(introConfig.navbarAnchorId);
+    if (!nav || nav.width === 0 || nav.height === 0) {
+      finishDock();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode]);
+
   useEffect(() => {
     if (mode !== "dockToNavbar") return;
 
     const applyScroll = (scrollY: number) => {
+      if (handedOffRef.current) return;
+      // No valid target measured — handoff owned by the one-shot effect above.
+      if (!navRectRef.current) return;
+
       const p = scrollToProgress(scrollY);
       rawProgress.set(p);
 
@@ -158,23 +197,11 @@ export default function FloatingLogo({
       width.set(hero.width + (nav.width - hero.width) * p);
       height.set(hero.height + (nav.height - hero.height) * p);
 
-      // Hysteresis on scrollY — avoids done⇄docking / hero⇄docking loops.
-      // > scrollEnd → navbar owns logo; < scrollStart → hero owns logo.
+      // Hysteresis on scrollY — hand off exactly once at each endpoint.
       if (scrollY >= introConfig.scrollEnd) {
-        if (!atNavbarRef.current) {
-          atNavbarRef.current = true;
-          atHeroRef.current = false;
-          onDockComplete();
-        }
+        finishDock();
       } else if (scrollY <= introConfig.scrollStart) {
-        if (!atHeroRef.current) {
-          atHeroRef.current = true;
-          atNavbarRef.current = false;
-          onReturnToHero();
-        }
-      } else {
-        atNavbarRef.current = false;
-        atHeroRef.current = false;
+        finishReturn();
       }
     };
 

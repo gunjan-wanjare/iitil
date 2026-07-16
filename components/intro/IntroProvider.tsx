@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Loader from "./Loader";
 import FloatingLogo from "./FloatingLogo";
 import { IntroContext } from "./useIntro";
@@ -30,9 +30,12 @@ export default function IntroProvider({
   const [heroRect, setHeroRect] = useState<Rect | null>(null);
   const [dockProgress, setDockProgress] = useState(0);
   const [showLoader, setShowLoader] = useState(false);
+  const phaseRef = useRef<IntroPhase>(phase);
+  phaseRef.current = phase;
 
   useEffect(() => {
     if (!introConfig.enabled || isMobileViewport()) {
+      phaseRef.current = "done";
       setPhase("done");
       setDockProgress(1);
       return;
@@ -106,16 +109,22 @@ export default function IntroProvider({
     return () => window.removeEventListener("scroll", onScroll);
   }, [phase, lenis]);
 
-  // done → docking when scrolling back up (reverse)
+  // done → docking when scrolling back up (reverse).
+  // Only if the navbar dock target is measurable — otherwise reverse dock is
+  // impossible (e.g. mobile hide) and would remount FloatingLogo forever.
   useEffect(() => {
     if (phase !== "done") return;
 
     const maybeUndock = (scrollY: number) => {
-      if (scrollY < introConfig.scrollEnd) {
-        const measured = measureById(introConfig.heroAnchorId);
-        if (measured) setHeroRect(measured);
-        setPhase("docking");
-      }
+      if (scrollY >= introConfig.scrollEnd) return;
+      if (phaseRef.current !== "done") return;
+
+      const nav = measureById(introConfig.navbarAnchorId);
+      if (!nav || nav.width === 0 || nav.height === 0) return;
+
+      const measured = measureById(introConfig.heroAnchorId);
+      if (measured) setHeroRect(measured);
+      setPhase("docking");
     };
 
     if (lenis) {
@@ -150,19 +159,26 @@ export default function IntroProvider({
   }, []);
 
   const arriveAtHero = useCallback(() => {
+    if (phaseRef.current === "hero") return;
     const measured = measureById(introConfig.heroAnchorId);
     if (measured) setHeroRect(measured);
+    phaseRef.current = "hero";
     setDockProgress(0);
     setPhase("hero");
   }, []);
 
   const completeDock = useCallback(() => {
+    // Idempotent — never re-enter done from a repeated handoff.
+    if (phaseRef.current === "done") return;
+    phaseRef.current = "done";
     setDockProgress(1);
     setPhase("done");
     document.documentElement.style.setProperty("--intro-dock-progress", "1");
   }, []);
 
   const returnToHero = useCallback(() => {
+    if (phaseRef.current === "hero") return;
+    phaseRef.current = "hero";
     setDockProgress(0);
     setPhase("hero");
     document.documentElement.style.setProperty("--intro-dock-progress", "0");
