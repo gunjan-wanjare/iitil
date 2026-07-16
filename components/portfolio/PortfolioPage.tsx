@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo, memo } from "react";
+import { useRef, memo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/sections/Footer";
@@ -8,9 +8,12 @@ import BlurText from "@/components/ui/BlurText";
 import PillLabel from "@/components/ui/PillLabel";
 import GlowCard from "@/components/ui/GlowCard";
 import AnimatedButton from "@/components/ui/AnimatedButton";
-import HorizontalServiceShowcase, {
-  type ServiceShowcaseCard,
-} from "@/components/portfolio/HorizontalServiceShowcase";
+import ProjectsSlider, {
+  type ProjectCard,
+} from "@/components/portfolio/ProjectSlider";
+import ServicesShowcaseGrid, {
+  type ServiceCard,
+} from "@/components/portfolio/ServiceShowcaseGrid";
 
 import {
   Heart,
@@ -51,7 +54,7 @@ const Icon = {
   CRM: <Boxes {...ICON_PROPS} />,
 };
 
-const PROJECT_CARDS: ServiceShowcaseCard[] = [
+const PROJECT_CARDS: ProjectCard[] = [
   {
     id: "mdc",
     tag: "Healthcare",
@@ -98,6 +101,21 @@ const PROJECT_CARDS: ServiceShowcaseCard[] = [
     ],
   },
   {
+    id: "ek",
+    tag: "Food Delivery",
+    title: "Eatskart",
+    description:
+      "A fair-share food delivery platform offering lower commissions for restaurants to ensure higher earnings and bigger savings for diners.",
+    img: "/eatskart.png",
+    accent: "#3b82f6",
+    features: [
+      "Lower restaurant commissions",
+      "Live order tracking",
+      "Menu & venue discovery",
+      "Fast, reliable delivery",
+    ],
+  },
+  {
     id: "pcx",
     tag: "Property",
     title: "Propertizor",
@@ -114,7 +132,7 @@ const PROJECT_CARDS: ServiceShowcaseCard[] = [
   },
 ];
 
-const ECOSYSTEM_CARDS: ServiceShowcaseCard[] = [
+const ECOSYSTEM_CARDS: ServiceCard[] = [
   {
     id: "ds",
     tag: "Data Services",
@@ -254,10 +272,10 @@ function HeroSection() {
       {/* Brand Logo - Hidden on mobile viewports, positioned safely below navbar on desktop */}
       <div className="hidden md:block md:absolute md:top-28 md:right-12 z-30 pointer-events-none">
         <div className="pointer-events-auto">
-          <Image 
+          <Image
             src="/yaka_brand_logo.png"
-            alt="Yaka Brand Logo" 
-            width={80} 
+            alt="Yaka Brand Logo"
+            width={80}
             height={40}
             priority
             className="w-20 h-auto"
@@ -918,7 +936,7 @@ export default function PortfolioPage() {
         />
       </div>
 
-      <HorizontalServiceShowcase
+      <ProjectsSlider
         sectionId="active-projects"
         label="Active Projects"
         heading="Current Project Portfolio"
@@ -950,7 +968,7 @@ export default function PortfolioPage() {
         />
       </div>
 
-      <HorizontalServiceShowcase
+      <ServicesShowcaseGrid
         sectionId="service-ecosystem"
         label="Core Service Verticals"
         heading="Comprehensive Services"

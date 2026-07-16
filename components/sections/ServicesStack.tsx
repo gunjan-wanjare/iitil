@@ -6,19 +6,17 @@ import { CheckCircle2 } from "lucide-react";
 import BlurText from "@/components/ui/BlurText";
 import PillLabel from "@/components/ui/PillLabel";
 import AnimatedButton from "@/components/ui/AnimatedButton";
-import ScrollStack from "@/components/scroll-stack/ScrollStack";
 import Image from "next/image";
 
-// Shared image configuration to ensure exact scaling and layout containment
 function MockupImage({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="w-full h-full relative min-h-[260px] sm:min-h-[320px] md:min-h-full">
+    <div className="w-full h-full relative select-none">
       <Image 
         src={src} 
         alt={alt} 
         fill
-        sizes="(max-w-768px) 100vw, 50vw"
-        className="object-cover object-center select-none rounded-xl md:rounded-2xl"
+        sizes="(max-w-768px) 100vw, 33vw"
+        className="object-cover object-center rounded-xl md:rounded-2xl"
         draggable={false}
         priority
       />
@@ -32,13 +30,12 @@ const CARDS = [
     title: "Data Intelligence & Analytics",
     headline: "Turn raw data into decisions you can defend.",
     description:
-      "We engineer clean, governed data foundations and the intelligence layer on top - warehousing, BI ecosystems, dashboards, and predictive models, so your business runs on evidence, not instinct.",
+      "We engineer clean, governed data foundations and the intelligence layer on top - warehousing, BI ecosystems, dashboards, and predictive models.",
     bullets: [
-      "Data strategy, data warehousing, BI dashboards",
-      "Reporting automation, data governance",
-      "Predictive analytics, and performance intelligence.",
+      "Data strategy, warehousing, & BI dashboards",
+      "Reporting automation & data governance",
+      "Predictive analytics & performance intelligence.",
     ],
-    whatWeDo: "What we do: Data strategy, data warehousing, BI dashboards, reporting automation, data governance, predictive analytics, and performance intelligence.",
     ctaLabel: "Learn more",
     ctaHref: "/data-services",
     mockup: <MockupImage src="/data_analytics.jpg" alt="Data Intelligence & Analytics Workflow" />,
@@ -48,13 +45,12 @@ const CARDS = [
     title: "Artificial Intelligence & Machine Learning",
     headline: "AI that performs in production - not in a pitch.",
     description:
-      "We design, deploy, and monitor machine learning and GenAI systems that forecast, recommend, and automate at scale. Engineered to hold their accuracy long after launch.",
+      "We design, deploy, and monitor machine learning and GenAI systems that forecast, recommend, and automate at scale.",
     bullets: [
-      "Machine learning, GenAI solutions, forecasting models",
-      "Recommendation engines, NLP, intelligent automation",
-      "MLOps, and AI performance optimisation.",
+      "Machine learning & GenAI solutions",
+      "Recommendation engines & NLP automation",
+      "MLOps and AI performance optimization.",
     ],
-    whatWeDo: "What we do: Machine learning, GenAI solutions, forecasting models, recommendation engines, NLP, intelligent automation, MLOps, and AI performance optimisation.",
     ctaLabel: "Build smarter AI",
     ctaHref: "/ai-ml",
     mockup: <MockupImage src="/ai_ml.webp" alt="AI & Machine Learning Demonstration" />,
@@ -64,13 +60,12 @@ const CARDS = [
     title: "Cloud & DevOps",
     headline: "Infrastructure built to scale and built to stay up.",
     description:
-      "We modernise cloud environments and automate delivery end to end: secure, resilient, and cost-efficient. You ship faster without putting business-critical systems at risk.",
+      "We modernise cloud environments and automate delivery end to end: secure, resilient, and cost-efficient. You ship faster safely.",
     bullets: [
-      "Cloud migration, DevOps automation, CI/CD, Kubernetes",
-      "Cloud security, infrastructure automation, monitoring",
-      "Cost optimisation.",
+      "Cloud migration, DevOps, & Kubernetes",
+      "Infrastructure automation & security monitoring",
+      "Continuous optimization & cost controls.",
     ],
-    whatWeDo: "What we do: Cloud migration, DevOps automation, CI/CD, Kubernetes, cloud security, infrastructure automation, monitoring, and cost optimisation.",
     ctaLabel: "Modernise your cloud",
     ctaHref: "/cloud-infrastructure",
     mockup: <MockupImage src="/cloud.jpg" alt="Cloud Infrastructure Performance" />,
@@ -80,28 +75,38 @@ const CARDS = [
     title: "Enterprise Engineering",
     headline: "Systems that move the business forward - not block it.",
     description:
-      "We build customised enterprise applications, integrations, and workflow platforms that connect teams and operations into one coherent system designed to scale.",
+      "We build customised enterprise applications, integrations, and workflow platforms that connect teams and operations into one coherent system designed to scale safely.",
     bullets: [
-      "Custom applications, API development, system integration",
-      "Workflow automation, platform modernisation",
-      "Enterprise software engineering.",
+      "Custom enterprise application profiles & modular structures",
+      "API management, architecture layer handling, & internal system integrations",
+      "Workflow automation engine modernisations & core pipeline development.",
     ],
-    whatWeDo: "What we do: Custom applications, API development, system integration, workflow automation, platform modernisation, and enterprise software engineering.",
     ctaLabel: "Engineer better systems",
     ctaHref: "/it-services",
     mockup: <MockupImage src="/enterprise_engineering.png" alt="Enterprise Engineering Architecture" />,
   },
 ];
 
-export function ServiceCard({ card }: { card: (typeof CARDS)[0] }) {
+interface ServiceCardProps {
+  card: (typeof CARDS)[0];
+  isLast: boolean;
+}
+
+export function ServiceCard({ card, isLast }: ServiceCardProps) {
   return (
-    <div
-      className="relative w-full rounded-3xl overflow-hidden flex flex-col md:flex-row h-auto md:min-h-[520px] lg:h-[520px] mb-6 md:mb-0"
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+      className={`relative w-full rounded-3xl overflow-hidden flex flex-col justify-between
+        ${isLast ? "lg:flex-row lg:col-span-3 lg:h-[420px]" : "h-full"} h-auto`}
       style={{
         background: "linear-gradient(135deg, rgba(20,28,45,0.95) 0%, rgba(13,21,38,0.98) 35%, rgba(9,15,28,1) 65%, rgba(37,99,235,0.08) 100%)",
         border: "1px solid rgba(255,255,255,0.08)",
       }}
     >
+      {/* Ambient Glows */}
       <div
         aria-hidden
         className="absolute top-0 left-0 w-1/2 h-1/2 pointer-events-none z-0"
@@ -114,62 +119,69 @@ export function ServiceCard({ card }: { card: (typeof CARDS)[0] }) {
       />
 
       {/* Content Container */}
-      <div className="relative z-10 flex-1 p-6 sm:p-8 md:p-10 lg:p-12 flex flex-col justify-center order-2 md:order-1">
-        <span
-          className="inline-flex items-center px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium tracking-widest uppercase mb-4 sm:mb-6 w-fit font-mono"
-          style={{
-            background: "rgba(37,99,235,0.12)",
-            border: "1px solid rgba(37,99,235,0.25)",
-            color: "rgba(96,165,250,0.9)",
-          }}
-        >
-          {card.tag}
-        </span>
-        
-        <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium text-white tracking-tight leading-[1.2] mb-3">
-          {card.title}
-        </h3>
-        
-        {card.headline && (
-          <p className="text-sm sm:text-base lg:text-lg font-medium text-white/75 mb-3 sm:mb-4 leading-snug">
-            {card.headline}
+      <div className={`relative z-10 p-6 sm:p-8 md:p-10 flex flex-col order-2 md:order-1 flex-1 justify-between
+        ${isLast ? "lg:max-w-3xl" : ""}`}>
+        <div>
+          <span
+            className="inline-flex items-center px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium tracking-widest uppercase mb-4 w-fit font-mono"
+            style={{
+              background: "rgba(37,99,235,0.12)",
+              border: "1px solid rgba(37,99,235,0.25)",
+              color: "rgba(96,165,250,0.9)",
+            }}
+          >
+            {card.tag}
+          </span>
+          
+          <h3 className="text-xl sm:text-2xl font-medium text-white tracking-tight leading-[1.2] mb-2">
+            {card.title}
+          </h3>
+          
+          {card.headline && (
+            <p className="text-xs sm:text-sm font-medium text-white/75 mb-2 leading-snug">
+              {card.headline}
+            </p>
+          )}
+          
+          <p className="text-xs text-white/45 font-light leading-relaxed mb-4">
+            {card.description}
           </p>
-        )}
-        
-        <p className="text-xs sm:text-sm lg:text-base text-white/45 font-light leading-relaxed mb-4 sm:mb-6">
-          {card.description}
-        </p>
-        
-        <div className="flex flex-col gap-2.5 sm:gap-3.5 mb-6 sm:mb-8">
-          {card.bullets.map((b, i) => (
-            <div key={i} className="flex items-start gap-3 text-xs sm:text-sm font-medium text-white/75">
-              <span
-                className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
-                style={{
-                  background: "rgba(37,99,235,0.15)",
-                  border: "1px solid rgba(37,99,235,0.3)",
-                }}
-              >
-                <CheckCircle2 className="w-3 h-3 text-[#60a5fa]" />
-              </span>
-              <span className="flex-1 leading-tight">{b}</span>
-            </div>
-          ))}
+          
+          {/* Bullets */}
+          <div className={`flex flex-col gap-2 mb-6 ${isLast ? "lg:grid lg:grid-cols-2 lg:gap-x-6 lg:gap-y-2" : ""}`}>
+            {card.bullets.map((b, i) => (
+              <div key={i} className="flex items-start gap-2.5 text-xs font-medium text-white/75">
+                <span
+                  className="flex-shrink-0 w-4.5 h-4.5 rounded-full flex items-center justify-center mt-0.5"
+                  style={{
+                    background: "rgba(37,99,235,0.15)",
+                  }}
+                >
+                  <CheckCircle2 className="w-2.5 h-2.5 text-[#60a5fa]" />
+                </span>
+                <span className="flex-1 leading-tight">{b}</span>
+              </div>
+            ))}
+          </div>
         </div>
         
         {card.ctaLabel && (
           <AnimatedButton
             variant="ghost"
             href={card.ctaHref || "/reach-us"}
-            className="text-xs sm:text-sm px-5 py-2.5 sm:px-6 sm:py-3 w-fit"
+            className="text-xs px-4 py-2 w-fit mt-2"
           >
             {card.ctaLabel}
           </AnimatedButton>
         )}
       </div>
 
-      {/* Mockup Container */}
-      <div className="relative z-10 w-full md:w-[44%] lg:w-[46%] flex-shrink-0 p-4 sm:p-6 flex items-stretch order-1 md:order-2">
+      {/* Mockup Container - Using Strict Aspect-Ratio Layout */}
+      <div className={`relative z-10 w-full p-4 sm:p-6 flex items-stretch order-1 md:order-2 shrink-0
+        ${isLast 
+          ? "lg:w-[40%] xl:w-[35%] h-[260px] sm:h-[320px] lg:h-auto" 
+          : "aspect-[4/3] w-full"
+        }`}>
         <div
           className="w-full rounded-2xl overflow-hidden h-full relative"
           style={{
@@ -182,7 +194,7 @@ export function ServiceCard({ card }: { card: (typeof CARDS)[0] }) {
           {card.mockup}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -211,17 +223,21 @@ export default function ServicesStack() {
           className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg text-white/45 max-w-2xl leading-relaxed"
         >
           End-to-end data intelligence and technology services for enterprises ready to modernise
-          how they built to deliver, not to drag on.
+          how they build to deliver, not to drag on.
         </motion.p>
       </div>
 
-      {/* Cards stack presentation */}
+      {/* Grid Container - Handles Responsive Height Evenly via CSS Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
-        <ScrollStack labels={["Data", "AI", "Cloud", "Build"]}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
           {CARDS.map((card, i) => (
-            <ServiceCard key={i} card={card} />
+            <ServiceCard 
+              key={i} 
+              card={card} 
+              isLast={i === CARDS.length - 1} 
+            />
           ))}
-        </ScrollStack>
+        </div>
       </div>
     </section>
   );

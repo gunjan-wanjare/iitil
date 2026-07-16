@@ -5,6 +5,7 @@ import LenisProvider from "@/components/providers/LenisProvider";
 import JsonLd from "@/components/seo/JsonLd";
 import { SITE } from "@/lib/seo";
 import { graph, organizationSchema, webSiteSchema } from "@/lib/structured-data";
+import Script from "next/script";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -101,6 +102,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={roboto.variable}>
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-RP7S6FGJCL"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-RP7S6FGJCL');
+          `}
+        </Script>
+      </head>
+
       <body className="font-[family-name:var(--font-roboto)] antialiased">
         <JsonLd data={graph(organizationSchema(), webSiteSchema())} />
         <LenisProvider>{children}</LenisProvider>
