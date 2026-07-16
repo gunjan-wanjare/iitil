@@ -89,6 +89,9 @@ export const metadata: Metadata = {
     apple: [{ url: "/iitil_logo.svg" }],
   },
   manifest: "/manifest.webmanifest",
+  verification: {
+    google: "Wq5EduR0_5fnmMxzcgKA4ws5q0VjYCp2VTNAkm0YTWg",
+  },
 };
 
 export default function RootLayout({
