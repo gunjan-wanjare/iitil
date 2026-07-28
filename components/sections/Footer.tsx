@@ -123,7 +123,7 @@ export default function Footer() {
               Contact
             </h4>
             <div className="flex flex-col gap-2 mb-6">
-              <div className="text-sm text-white/45 leading-relaxed">
+              <div className="text-sm text-white/45 leading-relaxed whitespace-nowrap">
                 For business inquiry : <a href="mailto:business@iitil.com" className="text-sm text-white/45 hover:text-white transition-colors">
                   business@iitil.com
                 </a>
