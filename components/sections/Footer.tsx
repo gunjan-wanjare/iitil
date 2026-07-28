@@ -129,8 +129,8 @@ export default function Footer() {
                 </a>
               </div>
               <div className="text-sm text-white/45 leading-relaxed">
-                For career: <a href="mailto:career@iitil.com" className="text-sm text-white/45 hover:text-white transition-colors">
-                  career@iitil.com
+                For career: <a href="mailto:jobs@iitil.com" className="text-sm text-white/45 hover:text-white transition-colors">
+                  jobs@iitil.com
                 </a>
               </div>
               <a
