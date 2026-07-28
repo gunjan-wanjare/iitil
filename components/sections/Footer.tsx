@@ -123,9 +123,16 @@ export default function Footer() {
               Contact
             </h4>
             <div className="flex flex-col gap-2 mb-6">
-              <a href="mailto:business@iitil.com" className="text-sm text-white/45 hover:text-white transition-colors">
-                business@iitil.com
-              </a>
+              <div className="text-sm text-white/45 leading-relaxed">
+                For business inquiry : <a href="mailto:business@iitil.com" className="text-sm text-white/45 hover:text-white transition-colors">
+                  business@iitil.com
+                </a>
+              </div>
+              <div className="text-sm text-white/45 leading-relaxed">
+                For career: <a href="mailto:career@iitil.com" className="text-sm text-white/45 hover:text-white transition-colors">
+                  career@iitil.com
+                </a>
+              </div>
               <a
                 href="https://maps.google.com/?q=Sattva+Knowledge+City+Hi-Tec+City+Hyderabad+500081"
                 target="_blank"
