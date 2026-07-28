@@ -14,6 +14,7 @@ const SERVICE_OPTIONS = [
   "Application Development",
   "CRM Development",
   "Cybersecurity",
+  "Job",
   "Other",
 ] as const;
 
