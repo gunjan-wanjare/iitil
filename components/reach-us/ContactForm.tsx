@@ -2,7 +2,8 @@
 
 import { useState, useCallback, memo, FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { CheckCircle2, Loader2, XCircle } from "lucide-react";
+import { submitContactForm } from "@/lib/contact";
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -43,6 +44,8 @@ const INITIAL_FORM: FormData = {
   service: "",
   message: "",
 };
+
+const fallbackErrorMessage = "We could not send your message right now. Please try again shortly.";
 
 const GLASS_INPUT =
   "w-full rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-white/25 bg-white/[0.04] border border-white/[0.08] outline-none transition-all duration-300";
@@ -131,18 +134,21 @@ function ContactForm() {
   const [focused, setFocused] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const update = useCallback(
     (field: keyof FormData) =>
       (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setForm((prev) => ({ ...prev, [field]: e.target.value }));
         setErrors((prev) => ({ ...prev, [field]: undefined }));
+        setSubmitError("");
       },
     []
   );
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setSubmitError("");
     const validationErrors = validate(form);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -150,10 +156,15 @@ function ContactForm() {
     }
 
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1600));
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    setForm(INITIAL_FORM);
+    try {
+      await submitContactForm(form);
+      setIsSuccess(true);
+      setForm(INITIAL_FORM);
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : fallbackErrorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSuccess) {
@@ -335,6 +346,21 @@ function ContactForm() {
           "Send Message"
         )}
       </motion.button>
+      <AnimatePresence mode="wait">
+        {submitError && (
+          <motion.p
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.2 }}
+            className="inline-flex items-start gap-2 rounded-xl border border-red-400/30 bg-red-400/10 px-4 py-3 text-sm font-medium leading-relaxed text-red-200"
+            role="alert"
+          >
+            <XCircle size={18} className="mt-0.5 shrink-0" />
+            <span>{submitError}</span>
+          </motion.p>
+        )}
+      </AnimatePresence>
     </form>
   );
 }
