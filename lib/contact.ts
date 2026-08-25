@@ -35,5 +35,5 @@ export function submitContactForm(values: ContactFormValues) {
     description: values.message,
   };
 
-  return api.post<void>(payload);
+  return api.post<void>("/contact", payload);
 }
