@@ -17,7 +17,7 @@ const COMPANY_LINKS = [
   { label: "About", href: "/about" },
   { label: "Solutions", href: "/solutions" },
   { label: "Portfolio", href: "/portfolio" },
-  { label: "Our Team", href: "/team" },
+  // { label: "Our Team", href: "/team" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "Legal", href: "/legal" },
   { label: "Reach Us", href: "/reach-us" },
