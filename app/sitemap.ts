@@ -24,7 +24,7 @@ const ROUTES: RouteConfig[] = [
   { path: "/cloud-infrastructure", priority: 0.8, changeFrequency: "monthly" },
   { path: "/cybersecurity", priority: 0.8, changeFrequency: "monthly" },
   { path: "/reach-us", priority: 0.7, changeFrequency: "monthly" },
-  { path: "/team", priority: 0.6, changeFrequency: "monthly" },
+  // { path: "/team", priority: 0.6, changeFrequency: "monthly" },
   { path: "/legal", priority: 0.3, changeFrequency: "yearly" },
 ];
 
