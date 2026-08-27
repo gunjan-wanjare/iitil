@@ -54,12 +54,9 @@ export default function Hero() {
       */}
       <div
         id={introConfig.heroAnchorId}
-        className="hidden md:flex md:absolute md:top-28 md:right-12 z-30 items-center justify-center pointer-events-none"
+        className="hidden md:flex md:absolute md:top-28 md:right-12 z-30 items-center justify-center pointer-events-none md:w-14 md:h-14 xl:w-16 xl:h-16 transition-opacity duration-300 ease-out"
         style={{
-          width: introConfig.heroLogoSize,
-          height: introConfig.heroLogoSize,
           opacity: showHeroLogo ? 1 : 0,
-          // Instant handoff — FloatingLogo owns the logo during transit.
         }}
         aria-hidden={!showHeroLogo}
       >

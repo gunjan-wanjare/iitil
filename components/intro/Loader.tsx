@@ -43,7 +43,7 @@ function LoadingBar({ delay = 0.5 }: { delay?: number }) {
  * notifies parent, then fades over `loaderFadeDuration`.
  */
 export default function Loader({ onComplete, onExited }: LoaderProps) {
-  const yakaLogoRef = useRef<HTMLDivElement>(null);
+  const logoBoxRef = useRef<HTMLDivElement>(null);
   const [stage, setStage] = useState<Stage>("brand");
   const [visible, setVisible] = useState(true);
   const completedRef = useRef(false);
@@ -55,7 +55,7 @@ export default function Loader({ onComplete, onExited }: LoaderProps) {
     );
 
     const hold = window.setTimeout(() => {
-      const rect = measureRect(yakaLogoRef.current);
+      const rect = measureRect(logoBoxRef.current);
       if (rect && !completedRef.current) {
         completedRef.current = true;
         // Handoff BEFORE fade so FloatingLogo occupies the same pixels.
@@ -82,7 +82,7 @@ export default function Loader({ onComplete, onExited }: LoaderProps) {
             opacity: 0,
             transition: {
               duration: introConfig.loaderFadeDuration / 1000,
-              ease: "easeInOut",
+              ease: [0.22, 1, 0.36, 1],
             },
           }}
           aria-busy="true"
@@ -98,64 +98,92 @@ export default function Loader({ onComplete, onExited }: LoaderProps) {
             }}
           />
 
-          <AnimatePresence mode="wait">
-            {stage === "brand" ? (
-              <motion.div
-                key="stage1-iitil"
-                initial={{ scale: 1.2, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.92, opacity: 0 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="relative z-10 flex flex-col items-center justify-center gap-6"
-              >
-                <div
-                  className="relative"
-                  style={{
-                    width: introConfig.loaderStage1LogoSize,
-                    height: introConfig.loaderStage1LogoSize,
-                  }}
+          {/* Soft glow/shadow behind the logo */}
+          <motion.div
+            aria-hidden
+            initial={{ opacity: 0, scale: 0.4 }}
+            animate={{ opacity: 0.6, scale: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="absolute pointer-events-none rounded-full"
+            style={{
+              width: 400,
+              height: 400,
+              background:
+                "radial-gradient(circle, rgba(96,165,250,0.24) 0%, rgba(37,99,235,0.12) 45%, transparent 70%)",
+              filter: "blur(28px)",
+            }}
+          />
+
+          <motion.div
+            initial={{ scale: 3.5, opacity: 0, filter: "blur(18px)" }}
+            animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="relative z-10 flex flex-col items-center justify-center gap-5"
+          >
+            <div
+              ref={logoBoxRef}
+              className="relative"
+              style={{
+                width: introConfig.loaderStage1LogoSize,
+                height: introConfig.loaderStage1LogoSize,
+              }}
+            >
+              <AnimatePresence mode="wait">
+                {stage === "brand" ? (
+                  <motion.div
+                    key="stage1-iitil"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={introConfig.stage1Logo}
+                      alt="IITIL"
+                      fill
+                      priority
+                      className="object-contain"
+                    />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="stage2-yaka"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={introConfig.iconLogo}
+                      alt="YAKA"
+                      fill
+                      priority
+                      className="object-contain"
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <AnimatePresence mode="wait">
+              {stage === "yaka" && (
+                <motion.p
+                  key="yaka-caption"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="text-[10px] sm:text-xs font-medium tracking-wide text-[#B0C0F8]"
                 >
-                  <Image
-                    src={introConfig.stage1Logo}
-                    alt="IITIL"
-                    fill
-                    priority
-                    className="object-contain"
-                  />
-                </div>
-                <LoadingBar delay={0.3} />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="stage2-yaka"
-                initial={{ scale: 1.2, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="relative z-10 flex flex-col items-center justify-center gap-3"
-              >
-                <div
-                  ref={yakaLogoRef}
-                  className="relative"
-                  style={{
-                    width: introConfig.loaderStage2LogoSize,
-                    height: introConfig.loaderStage2LogoSize,
-                  }}
-                >
-                  <Image
-                    src={introConfig.iconLogo}
-                    alt="YAKA"
-                    fill
-                    priority
-                    className="object-contain"
-                  />
-                </div>
-                <p className="text-xs sm:text-sm font-medium tracking-wide text-[#B0C0F8]">
                   A <span className="font-bold text-white">YAKA</span> Brand
-                </p>
-                <LoadingBar delay={0.5} />
-              </motion.div>
-            )}
-          </AnimatePresence>
+                </motion.p>
+              )}
+            </AnimatePresence>
+
+            <LoadingBar delay={0.5} />
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>

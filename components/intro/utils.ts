@@ -29,18 +29,3 @@ export function measureById(id: string): Rect | null {
 export function lerp(a: number, b: number, t: number): number {
   return a + (b - a) * t;
 }
-
-/** Clamp 0–1. */
-export function clamp01(n: number): number {
-  return Math.min(1, Math.max(0, n));
-}
-
-/** Map scrollY into 0–1 dock progress. */
-export function scrollToProgress(
-  scrollY: number,
-  start: number = introConfig.scrollStart,
-  end: number = introConfig.scrollEnd
-): number {
-  if (end <= start) return scrollY >= end ? 1 : 0;
-  return clamp01((scrollY - start) / (end - start));
-}

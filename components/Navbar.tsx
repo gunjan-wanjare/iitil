@@ -23,7 +23,7 @@ const DESKTOP_NAV_MIN = 1280;
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { phase, dockProgress } = useIntro();
+  const { phase } = useIntro();
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -60,13 +60,10 @@ export default function Navbar() {
     };
   }, []);
 
-  // YAKA icon ONLY when fully docked (or mobile skip). Never during flight/dock/hero.
+  // YAKA icon ONLY when fully docked (or mobile skip). Never during flight/hero.
   const showNavbarIcon = isMobile || phase === "done";
   const logoSize = introConfig.navbarLogoSize;
   const leftLogoSize = isMobile ? 48 : 64;
-  const controlsShiftX = isMobile
-    ? 0
-    : -introConfig.navbarShiftX * dockProgress;
 
   return (
     <>
@@ -174,11 +171,7 @@ export default function Navbar() {
             </div>
 
             {/* RIGHT — always column 3: CTA, YAKA, hamburger when needed */}
-            <motion.div
-              className="col-start-3 justify-self-end flex items-center gap-3 sm:gap-4 min-w-0"
-              animate={{ x: controlsShiftX }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-            >
+            <div className="col-start-3 justify-self-end flex items-center gap-3 sm:gap-4 min-w-0">
               {!isActive("/reach-us") && (
                 <div className="hidden sm:block shrink-0">
                   <AnimatedButton
@@ -193,23 +186,36 @@ export default function Navbar() {
 
               {/*
                 Dock target AFTER the CTA.
-                Always measured for intro; image only when done / mobile skip.
+                Always measured for intro; icon fades/scales in only when
+                done / mobile skip — it lives natively inside the navbar,
+                so it never overlays it from a separate layer.
               */}
               <div
                 id={introConfig.navbarAnchorId}
                 className="relative flex items-center justify-center flex-shrink-0"
                 style={{ width: logoSize, height: logoSize }}
               >
-                {showNavbarIcon && (
-                  <Image
-                    src={introConfig.iconLogo}
-                    alt="Yaka"
-                    width={logoSize}
-                    height={logoSize}
-                    className="w-full h-full object-contain"
-                    priority
-                  />
-                )}
+                <AnimatePresence>
+                  {showNavbarIcon && (
+                    <motion.div
+                      key="navbar-yaka"
+                      initial={{ opacity: 0, scale: 0.85 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.85 }}
+                      transition={{ type: "spring", stiffness: 180, damping: 22 }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={introConfig.iconLogo}
+                        alt="Yaka"
+                        width={logoSize}
+                        height={logoSize}
+                        className="w-full h-full object-contain"
+                        priority
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               <button
@@ -242,7 +248,7 @@ export default function Navbar() {
                   />
                 </div>
               </button>
-            </motion.div>
+            </div>
           </div>
         </motion.nav>
       </motion.header>

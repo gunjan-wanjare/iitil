@@ -7,8 +7,7 @@ export type IntroPhase =
   | "loading" // Fullscreen loader (brand + shimmer)
   | "flying" // Logo flies from loader → hero (or navbar)
   | "hero" // Parked on hero, waiting for scroll
-  | "docking" // Scroll-linked brand ↔ navbar (bidirectional)
-  | "done"; // Floating unmounted; navbar owns the icon (scroll > scrollEnd)
+  | "done"; // Scrolled past threshold; navbar owns the icon
 
 export interface Rect {
   left: number;
@@ -25,14 +24,8 @@ export interface IntroContextValue {
   isActive: boolean;
   /** Loader logo rect measured at fade-out — FloatingLogo initial. */
   loaderRect: Rect | null;
-  /** 0–1 dock progress (scroll-linked). Safe to read outside RAF. */
-  dockProgress: number;
   /** Called by Loader when fade-out completes with measured logo rect. */
   completeLoader: (rect: Rect) => void;
   /** Called by FloatingLogo when it has landed on the hero. */
   arriveAtHero: () => void;
-  /** Called by FloatingLogo when dock progress reaches the navbar (p ≈ 1). */
-  completeDock: () => void;
-  /** Called by FloatingLogo when dock progress returns to the hero (p ≈ 0). */
-  returnToHero: () => void;
 }

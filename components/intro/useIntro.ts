@@ -8,11 +8,8 @@ const defaultValue: IntroContextValue = {
   isComplete: true,
   isActive: false,
   loaderRect: null,
-  dockProgress: 0,
   completeLoader: () => {},
   arriveAtHero: () => {},
-  completeDock: () => {},
-  returnToHero: () => {},
 };
 
 export const IntroContext = createContext<IntroContextValue>(defaultValue);
