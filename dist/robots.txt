@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Allow: /_next/static/
+Allow: /assets/
+Disallow: /api/
+
+Sitemap: https://www.iitil.com/sitemap.xml

@@ -197,7 +197,7 @@ export default function Navbar() {
               */}
               <div
                 id={introConfig.navbarAnchorId}
-                className="relative hidden md:flex items-center justify-center flex-shrink-0"
+                className="relative flex items-center justify-center flex-shrink-0"
                 style={{ width: logoSize, height: logoSize }}
               >
                 {showNavbarIcon && (
