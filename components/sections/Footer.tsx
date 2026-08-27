@@ -53,9 +53,9 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative pt-28 pb-14">
+    <footer className="relative pt-8 pb-8">
       {/* Top border */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-white/[0.08] to-transparent mb-28" />
+      <div className="h-px w-full  to-transparent mb-16" />
 
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
         <motion.div
@@ -80,11 +80,14 @@ export default function Footer() {
           </motion.div>
 
           {/* Col 2 — Services */}
-          <motion.div variants={colVariants}>
-            <h4 className="text-sm font-semibold text-white tracking-widest uppercase mb-7">
+          <motion.div
+            variants={colVariants}
+            className=" md:border-dashed md:border-white/10 md:pl-8 lg:pl-10"
+          >
+            {/* <h4 className="text-sm font-semibold text-white tracking-widest uppercase mb-7">
               Services
-            </h4>
-            <ul className="flex flex-col gap-3">
+            </h4> */}
+            <ul className="flex flex-col gap-0.5">
               {SERVICES_LINKS.map((link) => (
                 <li key={link.label}>
                   <Link
@@ -99,11 +102,14 @@ export default function Footer() {
           </motion.div>
 
           {/* Col 3 — Company */}
-          <motion.div variants={colVariants}>
-            <h4 className="text-sm font-semibold text-white tracking-widest uppercase mb-7">
+          <motion.div
+            variants={colVariants}
+            className="md:border-t md:border-dashed md:border-white/10 md:pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-10"
+          >
+            {/* <h4 className="text-sm font-semibold text-white tracking-widest uppercase mb-7">
               Company
-            </h4>
-            <ul className="flex flex-col gap-3">
+            </h4> */}
+            <ul className="flex flex-col gap-0.5">
               {COMPANY_LINKS.map((link) => (
                 <li key={link.label}>
                   <Link
@@ -118,11 +124,14 @@ export default function Footer() {
           </motion.div>
 
           {/* Col 4 — Contact */}
-          <motion.div variants={colVariants}>
-            <h4 className="text-sm font-semibold text-white tracking-widest uppercase mb-7">
+          <motion.div
+            variants={colVariants}
+            className="md:border-t md:border-l md:border-dashed md:border-white/10 md:pt-8 md:pl-8 lg:border-t-0 lg:pt-0 lg:pl-10"
+          >
+            {/* <h4 className="text-sm font-semibold text-white tracking-widest uppercase mb-7">
               Contact
-            </h4>
-            <div className="flex flex-col gap-2 mb-6">
+            </h4> */}
+            <div className="flex flex-col gap-0.5 mb-6">
               <div className="text-sm text-white/45 leading-relaxed whitespace-nowrap">
                 For business inquiry : <a href="mailto:business@iitil.com" className="text-sm text-white/45 hover:text-white transition-colors">
                   business@iitil.com
@@ -168,7 +177,7 @@ export default function Footer() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5, duration: 0.7 }}
-          className="flex flex-col md:flex-row items-center justify-between gap-4 mt-12 pt-6"
+          className="flex flex-col md:flex-row items-center justify-between gap-4 mt-8 pt-6"
           style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
         >
           <div>

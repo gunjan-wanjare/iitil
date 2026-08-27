@@ -35,6 +35,11 @@ export default function LenisProvider({
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
+    if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+
     const instance = new Lenis({
       lerp: 0.07,
       smoothWheel: true,

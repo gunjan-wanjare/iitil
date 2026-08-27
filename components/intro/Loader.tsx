@@ -14,36 +14,68 @@ interface LoaderProps {
   onExited?: () => void;
 }
 
+type Stage = "brand" | "yaka";
+
+function LoadingBar({ delay = 0.5 }: { delay?: number }) {
+  return (
+    <div
+      className="relative z-10 overflow-hidden rounded-full"
+      style={{ width: 80, height: 2, background: "rgba(255,255,255,0.08)" }}
+      aria-hidden
+    >
+      <motion.div
+        className="absolute top-0 bottom-0 rounded-full"
+        style={{
+          width: "40%",
+          background:
+            "linear-gradient(90deg, transparent, rgba(96,165,250,0.95), transparent)",
+        }}
+        animate={{ x: ["-120%", "220%"] }}
+        transition={{ duration: 1.2, repeat: Infinity, ease: "linear", delay }}
+      />
+    </div>
+  );
+}
+
 /**
- * Fullscreen Crediple loader.
- * Holds for `loaderDuration`, measures the brand logo, notifies parent,
- * then fades over `loaderFadeDuration`.
+ * Fullscreen two-stage loader: the site's own wordmark, then the
+ * "A YAKA Brand" mark. Holds each stage in turn, measures the YAKA mark,
+ * notifies parent, then fades over `loaderFadeDuration`.
  */
 export default function Loader({ onComplete, onExited }: LoaderProps) {
-  const logoRef = useRef<HTMLDivElement>(null);
+  const yakaLogoRef = useRef<HTMLDivElement>(null);
+  const [stage, setStage] = useState<Stage>("brand");
   const [visible, setVisible] = useState(true);
   const completedRef = useRef(false);
 
   useEffect(() => {
+    const toYaka = window.setTimeout(
+      () => setStage("yaka"),
+      introConfig.loaderStage1Duration
+    );
+
     const hold = window.setTimeout(() => {
-      const rect = measureRect(logoRef.current);
+      const rect = measureRect(yakaLogoRef.current);
       if (rect && !completedRef.current) {
         completedRef.current = true;
         // Handoff BEFORE fade so FloatingLogo occupies the same pixels.
         onComplete(rect);
       }
       setVisible(false);
-    }, introConfig.loaderDuration);
+    }, introConfig.loaderStage1Duration + introConfig.loaderStage2Duration);
 
-    return () => window.clearTimeout(hold);
+    return () => {
+      window.clearTimeout(toYaka);
+      window.clearTimeout(hold);
+    };
   }, [onComplete]);
 
   return (
     <AnimatePresence onExitComplete={onExited}>
       {visible && (
         <motion.div
-          key="crediple-loader"
-          className="fixed inset-0 z-[10000] flex flex-col items-center justify-center"
+          key="iitil-loader"
+          className="fixed inset-0 z-[10000] flex items-center justify-center"
           style={{ background: "rgba(2,8,23,1)" }}
           initial={{ opacity: 1 }}
           exit={{
@@ -66,63 +98,64 @@ export default function Loader({ onComplete, onExited }: LoaderProps) {
             }}
           />
 
-          <motion.div
-            ref={logoRef}
-            className="relative z-10"
-            style={{
-              width: introConfig.loaderLogoSize,
-              height: introConfig.loaderLogoSize,
-            }}
-            initial={{
-              scale: 3.5,
-              filter: "blur(18px)",
-              opacity: 0,
-            }}
-            animate={{
-              scale: 1,
-              filter: "blur(0px)",
-              opacity: 1,
-            }}
-            transition={{
-              duration: 1.1,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-          >
-            <Image
-              src={introConfig.brandLogo}
-              alt=""
-              width={introConfig.loaderLogoSize}
-              height={introConfig.loaderLogoSize}
-              priority
-              className="w-full h-full object-contain"
-            />
-          </motion.div>
-
-          {/* Real shimmer — transform x only, never opacity or background-position */}
-          <div
-            className="relative z-10 mt-10 overflow-hidden rounded-full"
-            style={{
-              width: 80,
-              height: 2,
-              background: "rgba(255,255,255,0.08)",
-            }}
-            aria-hidden
-          >
-            <motion.div
-              className="absolute top-0 bottom-0 rounded-full"
-              style={{
-                width: "40%",
-                background:
-                  "linear-gradient(90deg, transparent, rgba(96,165,250,0.95), transparent)",
-              }}
-              animate={{ x: ["-120%", "220%"] }}
-              transition={{
-                duration: 1.2,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            />
-          </div>
+          <AnimatePresence mode="wait">
+            {stage === "brand" ? (
+              <motion.div
+                key="stage1-iitil"
+                initial={{ scale: 1.2, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.92, opacity: 0 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="relative z-10 flex flex-col items-center justify-center gap-6"
+              >
+                <div
+                  className="relative"
+                  style={{
+                    width: introConfig.loaderStage1LogoSize,
+                    height: introConfig.loaderStage1LogoSize,
+                  }}
+                >
+                  <Image
+                    src={introConfig.stage1Logo}
+                    alt="IITIL"
+                    fill
+                    priority
+                    className="object-contain"
+                  />
+                </div>
+                <LoadingBar delay={0.3} />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="stage2-yaka"
+                initial={{ scale: 1.2, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="relative z-10 flex flex-col items-center justify-center gap-3"
+              >
+                <div
+                  ref={yakaLogoRef}
+                  className="relative"
+                  style={{
+                    width: introConfig.loaderStage2LogoSize,
+                    height: introConfig.loaderStage2LogoSize,
+                  }}
+                >
+                  <Image
+                    src={introConfig.iconLogo}
+                    alt="YAKA"
+                    fill
+                    priority
+                    className="object-contain"
+                  />
+                </div>
+                <p className="text-xs sm:text-sm font-medium tracking-wide text-[#B0C0F8]">
+                  A <span className="font-bold text-white">YAKA</span> Brand
+                </p>
+                <LoadingBar delay={0.5} />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       )}
     </AnimatePresence>

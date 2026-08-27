@@ -3,15 +3,16 @@
  *
  * When reusing this system on another Next.js website, edit ONLY this file:
  *
- * 1. brandLogo     → path to the full wordmark (used in loader + hero flight)
+ * 1. brandLogo     → path to the full wordmark (used in loader stage 2 + hero flight)
  * 2. iconLogo      → path to the compact icon (shown in navbar after docking)
- * 3. *LogoSize     → px sizes for each stage
- * 4. loaderDuration / loaderFadeDuration → loader hold + fade (ms)
- * 5. scrollStart / scrollEnd → scroll range (px) for hero → navbar dock
- * 6. heroAnchorId / navbarAnchorId → must match DOM ids in Hero & Navbar
- * 7. mobileBreakpoint → skip intro entirely below this width
- * 8. navbarShiftX → how far right-side nav controls slide left while docking
- * 9. enabled       → master kill-switch
+ * 3. stage1Logo    → path to the site's own wordmark (loader stage 1)
+ * 4. *LogoSize     → px sizes for each stage
+ * 5. loaderStage1Duration / loaderStage2Duration / loaderFadeDuration → loader hold + fade (ms)
+ * 6. scrollStart / scrollEnd → scroll range (px) for hero → navbar dock
+ * 7. heroAnchorId / navbarAnchorId → must match DOM ids in Hero & Navbar
+ * 8. mobileBreakpoint → skip intro entirely below this width
+ * 9. navbarShiftX → how far right-side nav controls slide left while docking
+ * 10. enabled       → master kill-switch
  */
 
 export const introConfig = {
@@ -31,8 +32,17 @@ export const introConfig = {
    */
   iconLogo: "/yaka_logo.png",
 
-  /** Loader centered logo size (px). */
-  loaderLogoSize: 140,
+  /**
+   * Site's own wordmark — loader stage 1, shown before the "A YAKA Brand" stage.
+   * CHANGE THIS when adopting on another brand.
+   */
+  stage1Logo: "/iitil_logo.svg",
+
+  /** Loader stage 1 (site wordmark) box size (px). */
+  loaderStage1LogoSize: 85,
+
+  /** Loader stage 2 (YAKA mark) icon size (px). */
+  loaderStage2LogoSize: 64,
 
   /** Hero parked logo size (px). */
   heroLogoSize: 80,
@@ -40,8 +50,11 @@ export const introConfig = {
   /** Final navbar icon size (px). */
   navbarLogoSize: 34,
 
-  /** How long the loader holds before fading (ms). */
-  loaderDuration: 3200,
+  /** How long the loader holds on stage 1 — site wordmark (ms). */
+  loaderStage1Duration: 1400,
+
+  /** How long the loader holds on stage 2 — "A YAKA Brand" mark (ms). */
+  loaderStage2Duration: 1600,
 
   /** Loader fade-out duration (ms). */
   loaderFadeDuration: 600,
