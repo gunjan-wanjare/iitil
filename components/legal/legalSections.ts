@@ -403,5 +403,3 @@ export const legalSections: LegalSectionData[] = [
     ],
   },
 ];
-
-export const legalSectionIds = legalSections.map((section) => section.id);
