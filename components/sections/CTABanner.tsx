@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import BlurText from "@/components/ui/BlurText";
 import PillLabel from "@/components/ui/PillLabel";
 import AnimatedButton from "@/components/ui/AnimatedButton";
 

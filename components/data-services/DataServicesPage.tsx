@@ -28,7 +28,7 @@ import BenefitsGridSection from "@/components/service-pages/BenefitsGridSection"
 import ServiceCTASection from "@/components/service-pages/ServiceCTASection";
 import PillLabel from "@/components/ui/PillLabel";
 import BlurText from "@/components/ui/BlurText";
-import { EASE, fadeUp } from "@/lib/animations";
+import { fadeUp } from "@/lib/animations";
 import type { BenefitItem, UseCaseItem, WhyIITILItem } from "@/components/service-pages/types";
 
 const ICON = { size: 24, strokeWidth: 1.6 } as const;
@@ -260,7 +260,6 @@ function KeyOfferingsSlider() {
   const trackRef = useRef<HTMLDivElement>(null);
   
   const [maxScroll, setMaxScroll] = useState(0);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   // Framer Motion motion values for drag and smooth springs
   const dragX = useMotionValue(0);
@@ -288,8 +287,7 @@ function KeyOfferingsSlider() {
   const handleSlide = (direction: "left" | "right") => {
     if (trackRef.current && containerRef.current) {
       const cardElement = trackRef.current.firstElementChild as HTMLElement;
-      const cardStep = cardElement ? cardElement.offsetWidth + 24 : 384; 
-      const visibleWidth = containerRef.current.clientWidth;
+      const cardStep = cardElement ? cardElement.offsetWidth + 24 : 384;
 
       let nextX = dragX.get();
 

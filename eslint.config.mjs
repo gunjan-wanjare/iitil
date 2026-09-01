@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Stale/generated output not covered by the defaults above:
+    "dist/**",
   ]),
 ]);
 

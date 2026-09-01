@@ -27,8 +27,8 @@ export default function TeamHero() {
           <Image 
             src="/yaka_brand_logo.png"
             alt="Yaka Brand Logo" 
-            width={80} 
-            height={40}
+            width={80}
+            height={60}
             priority
             className="w-20 h-auto"
           />

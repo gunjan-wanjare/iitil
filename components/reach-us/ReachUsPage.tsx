@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useMemo, memo } from "react";
+import { useRef, memo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Calendar, MessageSquare, Mail, MapPin, Clock, Globe, ArrowUpRight } from "lucide-react";
+import { Calendar, MessageSquare, MapPin, Globe, ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/sections/Footer";
 import BlurText from "@/components/ui/BlurText";
@@ -58,8 +58,8 @@ function HeroSection() {
           <Image 
             src="/yaka_brand_logo.png"
             alt="Yaka Brand Logo" 
-            width={80} 
-            height={40}
+            width={80}
+            height={60}
             priority
             className="w-20 h-auto"
           />
@@ -216,30 +216,6 @@ const ConsultationSection = memo(function ConsultationSection() {
 /* ────────────────────────────────────────────────────────────────
    Section 3 — Contact Form + Details
 ──────────────────────────────────────────────────────────────── */
-const CONTACT_ITEMS = [
-  {
-    icon: Mail,
-    accent: "#2563eb",
-    label: "Email",
-    value: "business@iitil.com",
-    href: "mailto:business@iitil.com",
-  },
-  {
-    icon: MapPin,
-    accent: "#60a5fa",
-    label: "Address",
-    value: "Sattva Knowledge City, Hi-Tec City\nHyderabad - 500081 Telangana\nIndia",
-    href: undefined,
-  },
-  {
-    icon: Clock,
-    accent: "#1d4ed8",
-    label: "Office Hours",
-    value: "Monday – Friday\n9:00 AM – 6:00 PM (IST)\n\nSaturday – Sunday\nClosed",
-    href: undefined,
-  },
-] as const;
-
 const ContactSection = memo(function ContactSection() {
   return (
     <section id="contact-form" className="py-28 px-6 scroll-mt-24">

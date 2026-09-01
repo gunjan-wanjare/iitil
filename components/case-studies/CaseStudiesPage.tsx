@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo, memo } from "react";
+import { useRef, memo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/sections/Footer";
@@ -45,8 +45,8 @@ function HeroSection() {
           <Image 
             src="/yaka_brand_logo.png"
             alt="Yaka Brand Logo" 
-            width={80} 
-            height={40}
+            width={80}
+            height={60}
             priority
             className="w-20 h-auto"
           />

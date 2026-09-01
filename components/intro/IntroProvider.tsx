@@ -33,7 +33,10 @@ export default function IntroProvider({
   const [loaderRect, setLoaderRect] = useState<Rect | null>(null);
   const [showLoader, setShowLoader] = useState(false);
   const phaseRef = useRef<IntroPhase>(phase);
-  phaseRef.current = phase;
+
+  useEffect(() => {
+    phaseRef.current = phase;
+  }, [phase]);
 
   useEffect(() => {
     if (!introConfig.enabled || isMobileViewport()) {

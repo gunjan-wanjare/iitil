@@ -29,7 +29,6 @@ export default function TeamPage() {
       <SectionDivider />
       <LeadershipSection />
       <SectionDivider />
-      <SectionDivider />
       <WhyTeamWinsSection />
       <PageCTA
         pillLabel="Join Our Team"

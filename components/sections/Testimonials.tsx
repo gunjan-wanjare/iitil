@@ -3,8 +3,6 @@
 import { useEffect, useRef, useMemo } from "react";
 import { motion, useMotionValue } from "framer-motion";
 import { Star } from "lucide-react";
-import BlurText from "@/components/ui/BlurText";
-import PillLabel from "@/components/ui/PillLabel";
 
 const FEATURED_QUOTE = {
   quote:

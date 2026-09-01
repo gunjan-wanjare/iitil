@@ -3,7 +3,6 @@ import Hero from "@/components/sections/Hero";
 import ServicesStack from "@/components/sections/ServicesStack";
 import WorkProcess from "@/components/sections/WorkProcess";
 import IITILComparison from "@/components/sections/IITILComparison";
-import FAQ from "@/components/sections/FAQ";
 import CaseStudies from "@/components/sections/CaseStudies";
 import Benefits from "@/components/sections/Benefits";
 import Testimonials from "@/components/sections/Testimonials";

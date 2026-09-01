@@ -25,18 +25,6 @@ export interface TeamMember {
   isLeadership?: boolean;
 }
 
-export const DEPARTMENTS: { id: DepartmentId; label: string }[] = [
-  { id: "leadership", label: "Leadership" },
-  { id: "engineering", label: "Engineering" },
-  { id: "data-ai", label: "Data & AI" },
-  { id: "cloud", label: "Cloud" },
-  { id: "sales", label: "Sales" },
-  { id: "marketing", label: "Marketing" },
-  { id: "operations", label: "Operations" },
-  { id: "hr", label: "HR" },
-  { id: "support", label: "Support" },
-];
-
 export const LEADERSHIP_MEMBERS: TeamMember[] = [
   {
     id: "jhonny-panchal",
@@ -106,77 +94,6 @@ export const LEADERSHIP_MEMBERS: TeamMember[] = [
   // },
 ];
 
-export const DEPARTMENT_MEMBERS: TeamMember[] = [
-  ...LEADERSHIP_MEMBERS,
-  {
-    id: "arjun-mehta",
-    name: "Arjun Mehta",
-    designation: "Lead Software Engineer",
-    department: "engineering",
-    experience: "11+ years",
-    bio: "Full-stack engineer specializing in scalable microservices, cloud-native architectures, and high-performance enterprise applications.",
-    skills: ["React", "Node.js", "System Design", "DevOps"],
-    image: "/team/arjun-mehta.jpg",
-    linkedin: "https://www.linkedin.com/company/iitil-cipl/",
-    email: "business@iitil.com",
-  },
-  {
-    id: "sneha-reddy",
-    name: "Sneha Reddy",
-    designation: "Senior Data Scientist",
-    department: "data-ai",
-    experience: "9+ years",
-    bio: "Builds production-grade ML pipelines and analytics models that turn complex datasets into actionable business intelligence.",
-    skills: ["Machine Learning", "Python", "MLOps", "Predictive Analytics"],
-    image: "/team/sneha-reddy.jpg",
-    linkedin: "https://www.linkedin.com/company/iitil-cipl/",
-    email: "business@iitil.com",
-  },
-  {
-    id: "vikram-sharma",
-    name: "Vikram Sharma",
-    designation: "Cloud Architect",
-    department: "cloud",
-    experience: "13+ years",
-    bio: "Designs secure, resilient cloud infrastructures and migration strategies for enterprise workloads across AWS and Azure.",
-    skills: ["AWS", "Azure", "Kubernetes", "Cloud Security"],
-    image: "/team/vikram-sharma.jpg",
-    linkedin: "https://www.linkedin.com/company/iitil-cipl/",
-    email: "business@iitil.com",
-  },
-  {
-    id: "anita-desai",
-    name: "Anita Desai",
-    designation: "Enterprise Sales Director",
-    department: "sales",
-    experience: "12+ years",
-    bio: "Partners with enterprise clients to align technology investments with measurable business outcomes and long-term growth.",
-    skills: ["Enterprise Sales", "Solution Selling", "Client Relations", "Negotiation"],
-    image: "/team/anita-desai.jpg",
-    linkedin: "https://www.linkedin.com/company/iitil-cipl/",
-    email: "business@iitil.com",
-  },
-  {
-    id: "karan-joshi",
-    name: "Karan Joshi",
-    designation: "Customer Support Lead",
-    department: "support",
-    experience: "8+ years",
-    bio: "Leads a global support team committed to fast resolution, proactive monitoring, and exceptional client experience.",
-    skills: ["Client Support", "Incident Management", "SLA Management", "Team Leadership"],
-    image: "/team/karan-joshi.jpg",
-    linkedin: "https://www.linkedin.com/company/iitil-cipl/",
-    email: "business@iitil.com",
-  },
-];
-
-export const TEAM_STATS = [
-  { value: 100, suffix: "+", label: "Experts" },
-  { value: 50, suffix: "+", label: "Projects" },
-  { value: 20, suffix: "+", label: "Countries" },
-  { value: 95, suffix: "%", label: "Client Satisfaction" },
-] as const;
-
 export const WHY_TEAM_WINS = [
   {
     title: "Innovation",
@@ -216,17 +133,3 @@ export const WHY_TEAM_WINS = [
   },
 ] as const;
 
-export const CULTURE_VALUES = [
-  "Business-first thinking in every decision",
-  "Measurable outcomes over vanity metrics",
-  "High-performing teams built on trust",
-  "Innovation that ships, not just slides",
-  "Global standards with local expertise",
-] as const;
-
-export function getMembersByDepartment(department: DepartmentId): TeamMember[] {
-  if (department === "leadership") {
-    return LEADERSHIP_MEMBERS;
-  }
-  return DEPARTMENT_MEMBERS.filter((m) => m.department === department);
-}
