@@ -1,12 +1,4 @@
 import type { Rect } from "./types";
-import { introConfig } from "./introConfig";
-
-/** Safe client-only mobile check. Never call during SSR. */
-export function isMobileViewport(
-  breakpoint: number = introConfig.mobileBreakpoint
-): boolean {
-  return window.innerWidth < breakpoint;
-}
 
 /** Measure an element into a plain Rect (viewport coordinates). */
 export function measureRect(el: Element | null): Rect | null {
