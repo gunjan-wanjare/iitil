@@ -10,8 +10,7 @@
  * 5. loaderStage1Duration / loaderStage2Duration / loaderFadeDuration → loader hold + fade (ms)
  * 6. scrollStart → scroll Y (px) where the hero logo hands off to the navbar
  * 7. heroAnchorId / navbarAnchorId → must match DOM ids in Hero & Navbar
- * 8. mobileBreakpoint → skip intro entirely below this width
- * 9. enabled       → master kill-switch
+ * 8. enabled       → master kill-switch
  */
 
 export const introConfig = {
@@ -66,9 +65,6 @@ export const introConfig = {
 
   /** Must match the invisible anchor element inside the Navbar. */
   navbarAnchorId: "navbar-logo-anchor",
-
-  /** Below this viewport width the intro is skipped entirely. */
-  mobileBreakpoint: 768,
 } as const;
 
 export type IntroConfig = typeof introConfig;
