@@ -5,7 +5,6 @@ import Loader from "./Loader";
 import FloatingLogo from "./FloatingLogo";
 import { IntroContext } from "./useIntro";
 import { introConfig } from "./introConfig";
-import { isMobileViewport } from "./utils";
 import type { IntroPhase, Rect, IntroContextValue } from "./types";
 import { useLenis } from "@/components/providers/LenisProvider";
 
@@ -39,7 +38,7 @@ export default function IntroProvider({
   }, [phase]);
 
   useEffect(() => {
-    if (!introConfig.enabled || isMobileViewport()) {
+    if (!introConfig.enabled) {
       phaseRef.current = "done";
       setPhase("done");
       return;
